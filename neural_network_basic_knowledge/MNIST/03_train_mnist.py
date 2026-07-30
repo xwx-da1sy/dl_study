@@ -77,7 +77,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 # num_epochs 表示完整遍历训练集多少轮。
 # 1 个 epoch = 模型把 60000 张训练图片都学习一遍。
 # MNIST 比较简单，先训练 5 轮就能看到不错的效果。
-num_epochs = 20
+num_epochs = 100
 
 
 # model_save_path 表示模型训练完成后保存到哪里。

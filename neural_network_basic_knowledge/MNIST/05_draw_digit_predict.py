@@ -156,7 +156,7 @@ class DigitDrawApp:
             output = model(input_tensor)
             prediction = output.argmax(dim=1).item()
 
-            # softmax 可以把 logits 转成概率，方便用户理解模型有多确定。
+            # softmax 可以把 logits 转成概率，方便理解模型有多确定。
             probabilities = torch.softmax(output, dim=1)
             confidence = probabilities[0, prediction].item()
 
