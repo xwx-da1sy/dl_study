@@ -12,7 +12,7 @@ from torchvision import transforms
 # 这个脚本会打开一个小窗口：
 # 1. 用户用鼠标在黑色画布上写一个白色数字。
 # 2. 点击“预测”按钮。
-# 3. 程序把用户写的数字缩放成 28x28。
+# 3. 程序把用户写的数字处理成接近 MNIST 的 28x28 图片。
 # 4. 加载训练好的 MLP 模型，输出预测结果。
 
 
@@ -43,13 +43,46 @@ model.eval()
 
 # 这里的预处理要和训练时保持一致。
 # 训练时用的是 ToTensor + Normalize((0.1307,), (0.3081,))。
-# 用户画出来的图片也必须经过同样的处理，模型才能正确理解。
+# 用户画出来的图片最后也必须经过同样的处理，模型才能正确理解。
 transform = transforms.Compose(
     [
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,)),
     ]
 )
+
+
+def resize_like_mnist(image):
+    # 直接把整个 280x280 画布缩放到 28x28，效果通常不好。
+    # 原因是用户写的数字可能偏左、偏右、太小或太大。
+    #
+    # MNIST 里的数字一般位于图片中央，并且数字主体不会小到只占一角。
+    # 所以这里先把用户真正写字的区域裁剪出来，再缩放并居中。
+
+    # getbbox 会找到非黑色像素的边界框。
+    # 如果用户什么都没写，bbox 会是 None。
+    bbox = image.getbbox()
+    if bbox is None:
+        return None
+
+    digit = image.crop(bbox)
+    width, height = digit.size
+
+    # 把裁剪出来的数字补成正方形，避免缩放时被压扁。
+    side = max(width, height)
+    square = Image.new("L", (side, side), color=0)
+    left = (side - width) // 2
+    top = (side - height) // 2
+    square.paste(digit, (left, top))
+
+    # MNIST 的数字通常不是撑满 28x28，而是周围有一些黑色边距。
+    # 所以先把数字主体缩放到 20x20，再放进 28x28 的中心。
+    digit_20 = square.resize((20, 20), Image.Resampling.LANCZOS)
+
+    mnist_like = Image.new("L", (28, 28), color=0)
+    mnist_like.paste(digit_20, (4, 4))
+
+    return mnist_like
 
 
 class DigitDrawApp:
@@ -60,7 +93,10 @@ class DigitDrawApp:
         # 画布大小设置成 280x280。
         # 因为 MNIST 是 28x28，这里相当于放大 10 倍，用户更容易写。
         self.canvas_size = 280
-        self.brush_size = 18
+
+        # 笔刷太细时，缩放到 28x28 后可能断裂。
+        # 稍微粗一点更接近 MNIST 的笔画粗细。
+        self.brush_size = 22
 
         # tkinter 的 Canvas 负责显示给用户看。
         self.canvas = tk.Canvas(
@@ -145,18 +181,20 @@ class DigitDrawApp:
             messagebox.showerror("错误", f"没有找到模型文件：{model_path}")
             return
 
-        # 把 280x280 的手写图缩放到 MNIST 的 28x28。
-        small_image = self.image.resize((28, 28), Image.Resampling.LANCZOS)
+        mnist_like_image = resize_like_mnist(self.image)
+        if mnist_like_image is None:
+            messagebox.showwarning("提示", "请先写一个数字")
+            return
 
-        # transform(small_image) 得到形状 [1, 28, 28] 的 Tensor。
+        # transform(mnist_like_image) 得到形状 [1, 28, 28] 的 Tensor。
         # unsqueeze(0) 增加 batch 维度，变成 [1, 1, 28, 28]。
-        input_tensor = transform(small_image).unsqueeze(0).to(device)
+        input_tensor = transform(mnist_like_image).unsqueeze(0).to(device)
 
         with torch.no_grad():
             output = model(input_tensor)
             prediction = output.argmax(dim=1).item()
 
-            # softmax 可以把 logits 转成概率，方便理解模型有多确定。
+            # softmax 可以把 logits 转成概率，方便用户理解模型有多确定。
             probabilities = torch.softmax(output, dim=1)
             confidence = probabilities[0, prediction].item()
 
