@@ -136,6 +136,20 @@
   - Momentum：引入动量加速收敛、减少震荡。
   - Adam：自适应学习率，结合 Momentum 与 RMSProp 的优点。
 
+### 2026-07-31
+- 学习过拟合与正则化：
+  - `neural_network_basic_knowledge/07_过拟合与正则化.ipynb`
+  - 过拟合：模型在训练集表现好，但在验证集表现差。
+  - 欠拟合：模型在训练集和验证集都表现差。
+  - 正则化方法：
+    - L1/L2 正则化
+    - Dropout
+    - 数据增强
+    - 提前停止（Early Stopping）
+- 学习 Batch Normalization 批量归一化：
+  - `neural_network_basic_knowledge/08_BatchNormalization批量归一化.ipynb`
+  - BN 的作用：加速训练、缓解梯度消失
+
 ## 当前阶段目标
 
 - 能熟练理解 Tensor 的 shape、dtype、device。
@@ -149,3 +163,4 @@
 - 能描述完整的神经网络训练流程，识别过拟合与欠拟合。
 - 能对比 SGD、Momentum、Adam 的特点与使用场景。
 - 下一步进入 `nn.Module` 实战：搭建完整 MLP 解决分类/回归任务。
+- 力竭了，先休息一下，明天继续。

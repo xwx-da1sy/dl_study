@@ -26,10 +26,11 @@
 3. [常用损失函数](02_mlp_training_theory/03-01_常用损失函数.ipynb)
 4. [反向传播与链式法则](02_mlp_training_theory/04_反向传播与链式法则.ipynb)
 5. [神经网络训练流程](02_mlp_training_theory/05_神经网络训练流程.ipynb)
-6. [优化器：SGD、Momentum、Adam](02_mlp_training_theory/06_优化器_SGD_Momentum_Adam.ipynb)
-7. [过拟合与正则化](02_mlp_training_theory/07_过拟合与正则化.ipynb)
-8. [Batch Normalization 批量归一化](02_mlp_training_theory/08_BatchNormalization批量归一化.ipynb)
-9. [MLP 结构设计](02_mlp_training_theory/09_MLP结构设计_输入层隐藏层输出层.ipynb)
+6. [指数加权移动平均](02_mlp_training_theory/05-01_指数加权移动平均.ipynb)
+7. [优化器：SGD、Momentum、Adam](02_mlp_training_theory/06_优化器_SGD_Momentum_Adam.ipynb)
+8. [过拟合与正则化](02_mlp_training_theory/07_过拟合与正则化.ipynb)
+9. [Batch Normalization 批量归一化](02_mlp_training_theory/08_BatchNormalization批量归一化.ipynb)
+10. [MLP 结构设计](02_mlp_training_theory/09_MLP结构设计_输入层隐藏层输出层.ipynb)
 
 ## 03 MNIST 实战
 
