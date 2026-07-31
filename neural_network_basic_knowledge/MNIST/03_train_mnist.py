@@ -82,7 +82,7 @@ num_epochs = 100
 
 # model_save_path 表示模型训练完成后保存到哪里。
 # .pth 是 PyTorch 保存模型参数时常用的文件后缀。
-model_save_path = Path(__file__).resolve().parent / "mlp_mnist.pth"
+model_save_path = Path(__file__).resolve().parent / "mlp_mnist_deeper.pth"
 
 
 def train_one_epoch():

@@ -19,7 +19,7 @@ project_dir = Path(__file__).resolve().parent
 
 # 模型参数保存路径。
 # 这个文件应该由 03_train_mnist.py 训练结束后生成。
-model_path = project_dir / "mlp_mnist.pth"
+model_path = project_dir / "mlp_mnist_deeper.pth"
 
 
 # 选择运行设备。
@@ -52,7 +52,7 @@ model = MLP().to(device)
 
 
 # load_state_dict 会把训练好的参数加载进模型。
-# torch.load(model_path, map_location=device) 表示从 mlp_mnist.pth 读取参数，
+# torch.load(model_path, map_location=device) 表示从 mlp_mnist_deeper.pth 读取参数，
 # 并把参数放到当前使用的 device 上。
 model.load_state_dict(torch.load(model_path, map_location=device))
 

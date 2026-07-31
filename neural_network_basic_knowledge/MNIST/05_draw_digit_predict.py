@@ -17,7 +17,7 @@ from torchvision import transforms
 
 
 project_dir = Path(__file__).resolve().parent
-model_path = project_dir / "mlp_mnist.pth"
+model_path = project_dir / "mlp_mnist_deeper.pth"
 
 
 # 选择运行设备。
