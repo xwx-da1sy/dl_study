@@ -67,11 +67,19 @@ criterion = nn.CrossEntropyLoss()
 # 学习率太大，训练可能不稳定；学习率太小，训练会很慢。
 learning_rate = 0.001
 
+# gamma 是学习率衰减系数，每个 epoch 结束后学习率乘以 gamma。
+# gamma=1.0 表示不衰减，gamma<1.0 表示指数衰减。
+# 例如 gamma=0.95 时，每轮学习率变为上一轮的 95%。
+gamma = 0.95
 
 # optimizer 是优化器，负责根据梯度更新模型参数。
 # model.parameters() 表示把模型中所有可训练参数交给优化器管理。
 # Adam 是一个常用且比较省心的优化器，适合入门项目先使用。
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+# scheduler 是学习率调度器，每个 epoch 结束后会按指数衰减调整学习率。
+# lr_new = lr_old * gamma
+scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=gamma)
 
 
 # num_epochs 表示完整遍历训练集多少轮。
@@ -82,7 +90,7 @@ num_epochs = 100
 
 # model_save_path 表示模型训练完成后保存到哪里。
 # .pth 是 PyTorch 保存模型参数时常用的文件后缀。
-model_save_path = Path(__file__).resolve().parent / "mlp_mnist_deeper.pth"
+model_save_path = Path(__file__).resolve().parent / "models" / "mlp_mnist_deeper.pth"
 
 
 def train_one_epoch():
@@ -190,17 +198,23 @@ if __name__ == "__main__":
         # 在测试集上评估当前模型，得到测试 loss 和准确率。
         test_loss, test_accuracy = evaluate()
 
+        # 每个 epoch 结束后，调用 scheduler.step() 更新学习率。
+        # ExponentialLR 会将学习率乘以 gamma，实现指数衰减。
+        scheduler.step()
+
         # epoch 从 0 开始计数，所以打印时用 epoch + 1 更符合人的阅读习惯。
         print(
             f"Epoch [{epoch + 1}/{num_epochs}] "
             f"train_loss: {train_loss:.4f} "
             f"train_acc: {train_accuracy * 100:.2f}% "
             f"test_loss: {test_loss:.4f} "
-            f"test_acc: {test_accuracy * 100:.2f}%"
+            f"test_acc: {test_accuracy * 100:.2f}% "
+            f"lr: {scheduler.get_last_lr()[0]:.6f}"
         )
 
     # 训练结束后保存模型参数。
     # state_dict 里保存的是每一层的权重和偏置。
     # 保存 state_dict 比直接保存整个模型对象更常见，也更推荐。
+    model_save_path.parent.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), model_save_path)
     print("model saved to:", model_save_path)

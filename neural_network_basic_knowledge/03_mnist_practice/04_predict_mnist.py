@@ -19,7 +19,7 @@ project_dir = Path(__file__).resolve().parent
 
 # 模型参数保存路径。
 # 这个文件应该由 03_train_mnist.py 训练结束后生成。
-model_path = project_dir / "mlp_mnist_deeper.pth"
+model_path = project_dir / "models" / "mlp_mnist_deeper.pth"
 
 
 # 选择运行设备。
