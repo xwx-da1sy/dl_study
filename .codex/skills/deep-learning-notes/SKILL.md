@@ -42,23 +42,21 @@ Avoid:
 
 ## Formula Formatting
 
-Use LaTeX-rendered Markdown for formulas.
+Handle formulas differently depending on the output surface.
 
-Use inline math for short expressions:
+For Notebook Markdown cells:
 
-```markdown
-MNIST 图片大小是 $28\times28$。
-```
+- Use LaTeX normally because Jupyter renders it correctly.
+- Inline formulas may use `$...$` when they read naturally in the sentence.
+- Important formulas may use display math with `$$...$$`.
+- Keep formulas readable and beginner-friendly.
 
-Use display math for important formulas:
+For chat replies:
 
-```markdown
-$$
-28\times28=784
-$$
-```
-
-Do not put formulas inside plain code blocks when they are meant to render as math.
+- Avoid inline dollar-delimited LaTeX because the chat box may show raw text such as `$28\times28$`.
+- Prefer plain text for simple dimensions in prose, such as `28 x 28`, `1 x 28 x 28`, or `B x C x H x W`.
+- If a formula is necessary in chat, prefer a standalone display block and verify it is not attached directly to punctuation.
+- If rendering reliability is uncertain, use plain text instead of raw dollar-delimited math.
 
 ## Workflow
 
