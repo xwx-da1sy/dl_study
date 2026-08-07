@@ -84,4 +84,6 @@
 
 目录：[04_cnn_convolutional_neural_network](04_cnn_convolutional_neural_network)
 
-这个目录先作为后续 CNN 学习的预留位置，目前不展开内容。
+### 01 卷积基础补充
+
+1. [Padding 类型和用法](../cnn_basic_knowledge/04_padding类型和用法.ipynb)
