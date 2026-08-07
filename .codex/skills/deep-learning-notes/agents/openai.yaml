@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Learning Notes"
+  short_description: "Write beginner-friendly deep learning study notes."
+  default_prompt: "Use $deep-learning-notes to continue my deep learning notebook in my preferred study-note style."
