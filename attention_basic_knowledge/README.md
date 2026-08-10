@@ -27,16 +27,16 @@ Attention 为什么出现
 
 ## 当前学习
 
-- `01_Attention机制概述.ipynb`：第一课，理解 Attention 要解决什么问题、如何用权重选择重要信息，以及它和 CNN 的关注方式有什么不同。
+- `01_Attention机制概述.ipynb`：第一课，从 CNN-MNIST 后的新问题出发，理解 Attention 为什么出现、如何从加权汇总一步步推出“相关性分数 -> Softmax -> 注意力权重 -> 加权求和”，以及它和 MLP、CNN 的区别。
 
 ## 第一阶段目标
 
 学完第一课后，需要先能说清楚：
 
 1. 为什么处理一条输入时，不同信息的重要程度可能不同。
-2. Attention 为什么可以理解成“动态加权汇总”。
-3. 注意力分数、注意力权重和加权结果分别是什么。
-4. Softmax 在 Attention 中承担什么职责。
-5. Attention 与 CNN 的局部感知有什么不同。
-6. 为什么 Attention 不是简单地“丢掉不重要的信息”。
-
+2. Attention Mechanism 为什么可以理解成一种“动态加权汇总机制”。
+3. 相关性分数、注意力权重和加权结果分别是什么。
+4. Softmax 为什么适合把相关性分数变成注意力权重。
+5. Attention 与 Linear 层里的固定参数权重有什么区别。
+6. Attention 与 CNN 的局部特征提取有什么不同。
+7. 为什么 Attention 会带来 `N x N` 级别的关系计算。
