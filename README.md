@@ -8,6 +8,7 @@
 - `pytorch_basic_knowledge/`：PyTorch 基础、Tensor、DataLoader、线性回归等内容。
 - `neural_network_basic_knowledge/`：神经网络基础概念（激活函数、MLP、优化器、归一化、MNIST 实战等）。
 - `cnn_basic_knowledge/`：CNN 卷积神经网络（图像基础、卷积层、池化层、网络结构、LeNet 等）。
+- `attention_basic_knowledge/`：Attention 注意力机制（动态加权、QKV、Self-Attention、Multi-Head Attention、Transformer 等）。
 
 ## 学习日志
 
@@ -225,6 +226,13 @@
   - `cnn_basic_knowledge/11_LeNet经典网络结构.ipynb`
   - 理解 LeNet 如何用卷积、池化、展平和全连接完成手写数字分类。
   - 掌握 LeNet 的层次结构和参数配置。
+- 完成 CNN-MNIST 实战：
+  - 完整实现数据加载、模型、损失函数、Adam、训练、评估、模型保存与单张图片预测。
+  - 正式训练 5 个 epoch，测试准确率达到 98% 以上。
+- 进入 Attention 学习阶段：
+  - 创建 `attention_basic_knowledge/` 学习目录。
+  - 完成 `attention_basic_knowledge/01_Attention机制概述.ipynb`。
+  - 初步理解注意力分数、Softmax、注意力权重和动态加权汇总。
 
 ## 当前阶段目标
 
@@ -245,4 +253,5 @@
 - 能区分最大池化与平均池化的作用和使用场景。
 - 能画出 CNN 完整结构（卷积→激活→池化→展平→全连接）。
 - 能复现 LeNet 网络结构。
-- 下一步：使用 PyTorch 实现 CNN 图像分类实战。
+- 能用 PyTorch 完成 CNN-MNIST 的训练、评估、保存和预测流程。
+- 当前阶段：理解 Attention 的基本机制，并逐步学习 QKV 与 Self-Attention。

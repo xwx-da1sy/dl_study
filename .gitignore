@@ -1,2 +1,4 @@
 __pycache__/
 .ipynb_checkpoints/
+cnn_basic_knowledge/data/
+cnn_basic_knowledge/models/

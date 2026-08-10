@@ -46,6 +46,15 @@
 - `15_PyTorch中CNN模型结构表示.ipynb`：第十五课，把 Conv2d、ReLU、MaxPool2d、Flatten、Linear 和 forward 对应到 CNN 模型结构与形状变化中。
 - `16_CNN-MNIST实战预备.ipynb`：第十六课，进入实战前先整体认识 CNN-MNIST 的任务目标、数据形状、模型结构、训练流程和测试流程。
 - `17_CNN-MNIST模型结构拆解.ipynb`：第十七课，在不写代码的前提下逐层拆解 CNN-MNIST 模型结构，重点理解从 `B x 1 x 28 x 28` 到 `B x 10` 的形状变化。
+
+## CNN-MNIST 实战代码
+
+- `cnn_mnist_practice/`：CNN-MNIST 手写数字识别实战代码包。
+- `cnn_mnist_practice/cnn_mnist.py`：完整实战主文件，包含数据集导入、DataLoader、CNN 模型、损失函数、Adam 优化器、训练、评估、模型保存和单张图片预测。
+- `data/`：MNIST 数据缓存目录，由训练时自动下载生成。
+- `models/`：训练产物目录，保存模型参数和训练记录。
+
+`data/` 和 `models/` 属于运行产物，已经在根目录 `.gitignore` 中忽略。
 ## 第一阶段目标
 
 学完图像基础知识后，先不要急着写 CNN 代码。
