@@ -24,6 +24,7 @@ Attention 为什么出现
 -> Query、Key、Value
 -> Self-Attention
 -> 矩阵形式与形状变化
+-> 3Blue1Brown 视角复盘 Attention 与 Transformer
 -> Multi-Head Attention
 -> 位置编码
 -> Transformer Encoder
@@ -34,10 +35,13 @@ Attention 为什么出现
 - `00_序列建模与Attention前置背景.ipynb`：预备课，补齐理解 QKV 所需的序列建模背景：token、位置、向量表示、上下文、RNN 的顺序传递思路，以及 Attention 为什么直接建模位置关系。
 - `01_Attention机制概述.ipynb`：第一课，从 CNN-MNIST 后的新问题出发，理解 Attention 为什么出现、如何从加权汇总一步步推出“相关性分数 -> Softmax -> 注意力权重 -> 加权求和”，以及它和 MLP、CNN 的区别。
 - `02_Query_Key_Value是什么.ipynb`：第二课，理解 Query、Key、Value 的分工：Q 和 K 用来计算相关性分数，Softmax 把分数变成权重，V 才是真正被加权汇总的内容。
+- `03_Self-Attention自注意力机制.ipynb`：第三课，理解 Self-Attention 为什么是同一份输入内部“自己看自己”，以及每个位置如何通过 Q、K、V 参考整句话并更新自己的表示。
+- `04_Self-Attention矩阵形式与形状变化.ipynb`：第四课，把 Self-Attention 写成矩阵形式，重点理解 `QK^T`、按行 Softmax、乘以 V 这几步的形状变化。
+- `05_用3Blue1Brown视角重讲Attention与Transformer.ipynb`：桥接复盘课，参考 3Blue1Brown 的讲课顺序，从 token、embedding、上下文改写、形容词更新名词的例子，重新理解 QKV、注意力图、Value 更新和 Transformer 层层改写向量的整体图景。
 
 ## 第一阶段目标
 
-学完预备课和前两课后，需要先能说清楚：
+学完预备课、前四课和 3Blue1Brown 复盘课后，需要先能说清楚：
 
 1. 什么是序列、token、位置和向量表示。
 2. 为什么一个位置的含义经常需要参考其他位置。
@@ -53,3 +57,16 @@ Attention 为什么出现
 12. Query、Key、Value 分别承担什么职责。
 13. 为什么 Q、K、V 通常来自同一份输入，但通过不同可学习变换得到。
 14. 为什么 Q 和 K 用来匹配，V 用来汇总。
+15. Self-Attention 中的 self 指什么。
+16. 为什么每个位置都可以直接看同一句话里的所有位置。
+17. 为什么 Self-Attention 会得到 `N x N` 的注意力表。
+18. Self-Attention 输出为什么仍然保留每个位置，但每个位置已经融合上下文。
+19. `QK^T` 为什么会得到 `N x N` 的分数表。
+20. Softmax 为什么通常对注意力分数表逐行计算。
+21. 为什么注意力权重乘以 V 后输出形状是 `N x d_v`。
+22. 加上 batch 后，Self-Attention 的主要形状如何从 `B x N x D` 变化到 `B x N x d_v`。
+23. 为什么初始 embedding 还没有充分吸收上下文。
+24. Attention Block 为什么可以理解成让 token 向量互相传递信息。
+25. 如何用“形容词更新名词”的例子解释 Query、Key、Value。
+26. 为什么 Multi-Head 可以理解成多个关系角度并行工作。
+27. GPT 中 mask 的基本作用是什么。
