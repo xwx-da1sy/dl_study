@@ -27,6 +27,8 @@ Attention 为什么出现
 -> 3Blue1Brown 视角复盘 Attention 与 Transformer
 -> Multi-Head Attention
 -> 位置编码
+-> Feed Forward Network
+-> 残差连接与 LayerNorm
 -> Transformer Encoder
 ```
 
@@ -40,6 +42,8 @@ Attention 为什么出现
 - `05_用3Blue1Brown视角重讲Attention与Transformer.ipynb`：桥接复盘课，参考 3Blue1Brown 的讲课顺序，从 token、embedding、上下文改写、形容词更新名词的例子，重新理解 QKV、注意力图、Value 更新和 Transformer 层层改写向量的整体图景。
 - `06_Multi-Head_Attention多头注意力机制.ipynb`：第六课，理解一个 attention head 可以看作一种关系视角，Multi-Head Attention 如何让多个 heads 并行建模不同关系，并掌握 `B x h x N x N` 等核心形状。
 - `07_位置编码_Positional_Encoding.ipynb`：第七课，理解 Self-Attention 为什么需要额外位置信息，位置编码如何与 token embedding 相加，以及可学习位置编码、正弦余弦位置编码、mask 与位置编码的区别。
+- `08_FeedForward_Network前馈神经网络.ipynb`：第八课，理解 Transformer 中的 FFN 为什么是 position-wise 的小型 MLP，如何对每个 token 单独做非线性加工，以及 `B x N x D -> B x N x d_ff -> B x N x D` 的形状变化。
+- `09_残差连接与LayerNorm.ipynb`：第九课，理解残差连接为什么是 `x + F(x)`、为什么要求形状一致，以及 LayerNorm 如何对每个 token 的特征维做归一化，最后串起 Encoder 中的 Add & Norm。
 
 ## 第一阶段目标
 
@@ -81,3 +85,13 @@ Attention 为什么出现
 34. 位置编码为什么通常和 token embedding 相加，而不是直接替代它。
 35. 可学习位置编码和正弦余弦位置编码有什么区别。
 36. 位置编码、注意力权重和 mask 分别解决什么问题。
+37. 为什么 Attention 后面还需要 FFN。
+38. 为什么 FFN 是 position-wise 的，并且对所有位置共享参数。
+39. FFN 为什么不负责 token 之间交流。
+40. 为什么 FFN 常见形状是 `B x N x D -> B x N x d_ff -> B x N x D`。
+41. FFN 和最终分类头有什么区别。
+42. 残差连接为什么可以理解成保留原信息并学习增量。
+43. 为什么残差连接要求输入和子层输出形状一致。
+44. LayerNorm 为什么对每个 token 的特征维做归一化。
+45. LayerNorm 和 BatchNorm、Softmax 分别有什么区别。
+46. Encoder 中的 Add & Norm 分别表示什么。
