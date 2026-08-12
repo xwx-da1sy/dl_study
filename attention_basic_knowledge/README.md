@@ -38,6 +38,8 @@ Attention 为什么出现
 - `03_Self-Attention自注意力机制.ipynb`：第三课，理解 Self-Attention 为什么是同一份输入内部“自己看自己”，以及每个位置如何通过 Q、K、V 参考整句话并更新自己的表示。
 - `04_Self-Attention矩阵形式与形状变化.ipynb`：第四课，把 Self-Attention 写成矩阵形式，重点理解 `QK^T`、按行 Softmax、乘以 V 这几步的形状变化。
 - `05_用3Blue1Brown视角重讲Attention与Transformer.ipynb`：桥接复盘课，参考 3Blue1Brown 的讲课顺序，从 token、embedding、上下文改写、形容词更新名词的例子，重新理解 QKV、注意力图、Value 更新和 Transformer 层层改写向量的整体图景。
+- `06_Multi-Head_Attention多头注意力机制.ipynb`：第六课，理解一个 attention head 可以看作一种关系视角，Multi-Head Attention 如何让多个 heads 并行建模不同关系，并掌握 `B x h x N x N` 等核心形状。
+- `07_位置编码_Positional_Encoding.ipynb`：第七课，理解 Self-Attention 为什么需要额外位置信息，位置编码如何与 token embedding 相加，以及可学习位置编码、正弦余弦位置编码、mask 与位置编码的区别。
 
 ## 第一阶段目标
 
@@ -70,3 +72,12 @@ Attention 为什么出现
 25. 如何用“形容词更新名词”的例子解释 Query、Key、Value。
 26. 为什么 Multi-Head 可以理解成多个关系角度并行工作。
 27. GPT 中 mask 的基本作用是什么。
+28. 为什么单个 attention head 可能不够。
+29. Multi-Head Attention 中每个 head 为什么有自己的 Q、K、V 参数。
+30. 为什么常见做法是把总维度 `D` 拆成 `h` 个 `d_head`。
+31. 多个 head 的输出为什么要拼接后再经过输出线性层。
+32. 加上 batch 后，Multi-Head Attention 的注意力分数为什么是 `B x h x N x N`。
+33. 为什么 Self-Attention 本身不天然知道 token 顺序。
+34. 位置编码为什么通常和 token embedding 相加，而不是直接替代它。
+35. 可学习位置编码和正弦余弦位置编码有什么区别。
+36. 位置编码、注意力权重和 mask 分别解决什么问题。

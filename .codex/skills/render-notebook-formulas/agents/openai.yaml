@@ -1,0 +1,4 @@
+interface:
+  display_name: "Render Notebook Formulas"
+  short_description: "Convert notebook formulas into reliable LaTeX"
+  default_prompt: "Use $render-notebook-formulas to convert plain-text formulas in these Jupyter notebooks into renderable LaTeX and verify the result."
