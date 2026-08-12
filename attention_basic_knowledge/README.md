@@ -44,6 +44,7 @@ Attention 为什么出现
 - `07_位置编码_Positional_Encoding.ipynb`：第七课，理解 Self-Attention 为什么需要额外位置信息，位置编码如何与 token embedding 相加，以及可学习位置编码、正弦余弦位置编码、mask 与位置编码的区别。
 - `08_FeedForward_Network前馈神经网络.ipynb`：第八课，理解 Transformer 中的 FFN 为什么是 position-wise 的小型 MLP，如何对每个 token 单独做非线性加工，以及 `B x N x D -> B x N x d_ff -> B x N x D` 的形状变化。
 - `09_残差连接与LayerNorm.ipynb`：第九课，理解残差连接为什么是 `x + F(x)`、为什么要求形状一致，以及 LayerNorm 如何对每个 token 的特征维做归一化，最后串起 Encoder 中的 Add & Norm。
+- `10_Transformer_Encoder整体结构.ipynb`：第十课，把位置编码、Multi-Head Self-Attention、FFN、残差连接和 LayerNorm 组装成完整 Encoder Layer，理解 `B x N x D` 如何在一层和多层 Encoder 中流动。
 
 ## 第一阶段目标
 
@@ -95,3 +96,8 @@ Attention 为什么出现
 44. LayerNorm 为什么对每个 token 的特征维做归一化。
 45. LayerNorm 和 BatchNorm、Softmax 分别有什么区别。
 46. Encoder 中的 Add & Norm 分别表示什么。
+47. Transformer Encoder 的作用是什么。
+48. 一个 Encoder Layer 为什么由 MHA + Add & Norm 和 FFN + Add & Norm 两大段组成。
+49. 为什么 Encoder Layer 输入输出形状通常保持 `B x N x D`。
+50. 多层 Encoder 堆叠后，token 表示为什么会逐层变得更有上下文。
+51. Encoder 输出可以如何用于理解类任务。

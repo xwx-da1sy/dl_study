@@ -15,6 +15,10 @@ DISPLAY_RE = re.compile(r"\$\$[\s\S]*?\$\$")
 INLINE_RE = re.compile(r"(?<!\$)\$(?!\$)(?:\\.|[^$\n])+\$")
 FENCE_RE = re.compile(r"```[\s\S]*?```")
 TEXT_RE = re.compile(r"\\text\{[^{}]*\}")
+FLOW_FENCE_RE = re.compile(
+    r"(?:->|→|Add\s*&\s*Norm|(?:^|\n)\s*(?:输入|输出|第\s*\d+\s*步|第一段|第二段|先|再|最后)\s*[：:]?)",
+    re.MULTILINE,
+)
 
 RAW_MATH_RE = re.compile(
     r"""(?x)
@@ -86,6 +90,8 @@ def audit_markdown(path: Path, cell_index: int, source: str) -> list[Finding]:
         match = RAW_MATH_RE.search(fence)
         if match:
             findings.append(Finding(path, cell_index, "math-in-code-fence", compact(fence)))
+        elif FLOW_FENCE_RE.search(fence):
+            findings.append(Finding(path, cell_index, "flow-in-code-fence", compact(fence)))
 
     plain = FENCE_RE.sub("", strip_protected_math(source))
     match = RAW_MATH_RE.search(plain)
