@@ -9,6 +9,7 @@
 - `neural_network_basic_knowledge/`：神经网络基础概念（激活函数、MLP、优化器、归一化、MNIST 实战等）。
 - `cnn_basic_knowledge/`：CNN 卷积神经网络（图像基础、卷积层、池化层、网络结构、LeNet 等）。
 - `attention_basic_knowledge/`：Attention 注意力机制（动态加权、QKV、Self-Attention、Multi-Head Attention、Transformer 等）。
+- `vision_transformer_practice/`：Vision Transformer 实践（预训练推理、Patch Embedding、CLS token、位置编码与 Tiny ViT EncoderBlock）。
 
 ## 学习日志
 
@@ -234,6 +235,66 @@
   - 完成 `attention_basic_knowledge/01_Attention机制概述.ipynb`。
   - 初步理解注意力分数、Softmax、注意力权重和动态加权汇总。
 
+### 2026-08-11
+
+- 补充序列建模与 Attention 的前置背景：
+  - `attention_basic_knowledge/00_序列建模与Attention前置背景.ipynb`
+  - 理解固定长度表示的局限，以及序列中不同 token 需要交换信息的原因。
+- 系统学习 Query、Key、Value：
+  - `attention_basic_knowledge/02_Query_Key_Value是什么.ipynb`
+  - 理解 Q 用于提出当前 token 的查询，K 用于描述可被匹配的特征，V 用于携带最终被汇总的信息。
+  - 掌握 `QK^T` 生成注意力分数、Softmax 生成权重、权重与 V 相乘得到上下文化表示的完整流程。
+- 学习 Self-Attention 的标量形式与矩阵形式：
+  - `attention_basic_knowledge/03_Self-Attention自注意力机制.ipynb`
+  - `attention_basic_knowledge/04_Self-Attention矩阵形式与形状变化.ipynb`
+  - 理解 Q、K、V 的形状以及注意力权重矩阵 `N×N` 的含义。
+  - 理解缩放因子 `sqrt(d_k)` 用于控制点积数值范围，避免 Softmax 过早饱和。
+- 从可视化视角重新梳理 Attention 与 Transformer：
+  - `attention_basic_knowledge/05_用3Blue1Brown视角重讲Attention与Transformer.ipynb`
+
+### 2026-08-12
+
+- 学习 Multi-Head Attention：
+  - `attention_basic_knowledge/06_Multi-Head_Attention多头注意力机制.ipynb`
+  - 理解多头不是无限扩大维度，而是把总表示维度分到多个子空间，并行学习不同关系后再拼接。
+- 学习位置编码：
+  - `attention_basic_knowledge/07_位置编码_Positional_Encoding.ipynb`
+  - 理解 Self-Attention 本身不包含顺序信息，因此需要额外注入 token 的位置。
+  - 学习固定正余弦位置编码的构造思路。
+- 学习 Transformer 中的 FFN、残差连接与 LayerNorm：
+  - `attention_basic_knowledge/08_FeedForward_Network前馈神经网络.ipynb`
+  - `attention_basic_knowledge/09_残差连接与LayerNorm.ipynb`
+  - 理解 FFN 本质上是对每个 token 独立使用、参数共享的 MLP。
+  - 理解残差连接提供信息与梯度的直接通路，LayerNorm 在单个 token 的特征维度上进行归一化。
+- 完成 Transformer Encoder 整体结构学习：
+  - `attention_basic_knowledge/10_Transformer_Encoder整体结构.ipynb`
+  - 串联 Multi-Head Attention、残差连接、LayerNorm 与 FFN，掌握 Encoder 的输入输出形状与信息流。
+
+### 2026-08-14
+
+- 制定 ViT 实践学习路径，创建 `vision_transformer_practice/` 目录。
+- 运行 torchvision 预训练 ViT，建立对完整图像分类流程的整体认识：
+  - `vision_transformer_practice/01_torchvision_ViT预训练推理.ipynb`
+- 学习 ViT 的 Patch Embedding：
+  - `vision_transformer_practice/02_ViT输入与PatchEmbedding.ipynb`
+  - 理解 RGB 图像如何通过 `kernel_size=stride=patch_size` 的 `Conv2d` 被切分并投影为 patch tokens。
+  - 掌握卷积权重形状 `D×C×P×P`、输出 token 形状以及参数量的计算方法。
+  - 验证 Patch Embedding 的卷积参数能够接收梯度并参与反向传播。
+- 学习 ViT 输入组装：
+  - `vision_transformer_practice/03_ViT输入组装_CLS与位置编码.ipynb`
+  - 理解每个样本拥有一个 CLS token，并由分类头读取第 0 个位置的上下文化表示。
+  - 区分固定正余弦位置编码与 ViT 常用的可学习位置编码。
+  - 理解输入分辨率变化时对位置编码网格进行插值的基本流程。
+- 学习 Attention 的反向传播：
+  - `attention_basic_knowledge/11_Attention反向传播概述.ipynb`
+  - `attention_basic_knowledge/12_Attention反向传播逐步推导.ipynb`
+  - `attention_basic_knowledge/13_用PyTorch观察Attention梯度.ipynb`
+  - 从输出 `O=AV` 开始，理解梯度如何依次流向 V、注意力权重 A、Softmax、Q、K 以及投影矩阵。
+- 拆解 Tiny ViT EncoderBlock：
+  - `vision_transformer_practice/04_TinyViT_EncoderBlock结构拆解.ipynb`
+  - 理解 ViT EncoderBlock 与 Transformer Encoder 的对应关系。
+  - 复习多头自注意力、FFN、残差连接、LayerNorm 的结构与参数计算。
+
 ## 当前阶段目标
 
 - 能熟练理解 Tensor 的 shape、dtype、device。
@@ -254,4 +315,10 @@
 - 能画出 CNN 完整结构（卷积→激活→池化→展平→全连接）。
 - 能复现 LeNet 网络结构。
 - 能用 PyTorch 完成 CNN-MNIST 的训练、评估、保存和预测流程。
-- 当前阶段：理解 Attention 的基本机制，并逐步学习 QKV 与 Self-Attention。
+- 能解释 Q、K、V、缩放点积注意力和注意力权重矩阵的含义与形状变化。
+- 能说明 Self-Attention 与 Multi-Head Attention 的区别，并计算每个 head 的维度。
+- 能画出 Transformer Encoder 的完整结构，解释 FFN、残差连接与 LayerNorm 的作用。
+- 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
+- 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
+- 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
+- 当前阶段：已完成 Transformer Encoder 基础学习，正在通过 Tiny ViT 进入视觉 Transformer 的结构实践。
