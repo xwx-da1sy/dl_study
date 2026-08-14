@@ -30,6 +30,9 @@ Attention 为什么出现
 -> Feed Forward Network
 -> 残差连接与 LayerNorm
 -> Transformer Encoder
+-> Attention 反向传播概述
+-> Attention 反向传播逐步推导
+-> 用 PyTorch 观察 Attention 梯度
 ```
 
 ## 当前学习
@@ -45,6 +48,9 @@ Attention 为什么出现
 - `08_FeedForward_Network前馈神经网络.ipynb`：第八课，理解 Transformer 中的 FFN 为什么是 position-wise 的小型 MLP，如何对每个 token 单独做非线性加工，以及 `B x N x D -> B x N x d_ff -> B x N x D` 的形状变化。
 - `09_残差连接与LayerNorm.ipynb`：第九课，理解残差连接为什么是 `x + F(x)`、为什么要求形状一致，以及 LayerNorm 如何对每个 token 的特征维做归一化，最后串起 Encoder 中的 Add & Norm。
 - `10_Transformer_Encoder整体结构.ipynb`：第十课，把位置编码、Multi-Head Self-Attention、FFN、残差连接和 LayerNorm 组装成完整 Encoder Layer，理解 `B x N x D` 如何在一层和多层 Encoder 中流动。
+- `11_Attention反向传播概述.ipynb`：第十一课，从损失出发建立 Attention 的完整梯度地图，理解梯度如何经过输出、注意力权重、分数矩阵和 QKV，最终到达三组投影参数与输入。
+- `12_Attention反向传播逐步推导.ipynb`：第十二课，逐段推导 `O=AV`、Softmax、`QK^T / sqrt(d_k)` 和 QKV 线性投影的梯度，并用形状检查串起完整反向传播路线。
+- `13_用PyTorch观察Attention梯度.ipynb`：第十三课，用 3 个 token 的迷你 Self-Attention 执行一次 `backward()`，查看中间张量及 `W_Q`、`W_K`、`W_V` 的梯度，并核对手推公式。
 
 ## 第一阶段目标
 
