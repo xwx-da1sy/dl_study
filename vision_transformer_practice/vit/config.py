@@ -55,7 +55,7 @@ NUM_CLASSES = 10
 # 训练配置：AdamW 初始学习率、权重衰减和训练轮数。
 LEARNING_RATE = 3e-4
 WEIGHT_DECAY = 0.05
-NUM_EPOCHS = 100
+NUM_EPOCHS = 500
 
 # 余弦退火最终将学习率从 3e-4 平滑降低到 1e-6。
 MIN_LEARNING_RATE = 1e-6
