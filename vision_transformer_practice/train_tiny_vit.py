@@ -10,7 +10,9 @@ try:
         BATCH_SIZE,
         BEST_MODEL_PATH,
         LEARNING_RATE,
+        LABEL_SMOOTHING,
         LOG_INTERVAL,
+        MIXUP_ALPHA,
         MIN_LEARNING_RATE,
         NUM_EPOCHS,
         NUM_WORKERS,
@@ -28,7 +30,9 @@ except ImportError:
         BATCH_SIZE,
         BEST_MODEL_PATH,
         LEARNING_RATE,
+        LABEL_SMOOTHING,
         LOG_INTERVAL,
+        MIXUP_ALPHA,
         MIN_LEARNING_RATE,
         NUM_EPOCHS,
         NUM_WORKERS,
@@ -58,6 +62,7 @@ def parse_args():
     parser.add_argument("--learning-rate", type=float, default=LEARNING_RATE)
     parser.add_argument("--weight-decay", type=float, default=WEIGHT_DECAY)
     parser.add_argument("--min-learning-rate", type=float, default=MIN_LEARNING_RATE)
+    parser.add_argument("--mixup-alpha", type=float, default=MIXUP_ALPHA)
     parser.add_argument("--log-interval", type=int, default=LOG_INTERVAL)
     parser.add_argument(
         "--checkpoint",
@@ -109,6 +114,7 @@ def main():
         weight_decay=args.weight_decay,
         num_epochs=args.epochs,
         min_learning_rate=args.min_learning_rate,
+        label_smoothing=LABEL_SMOOTHING,
     )
 
     trainable_parameters = sum(
@@ -147,6 +153,7 @@ def main():
         history_path=args.history,
         use_amp=not args.no_amp,
         log_interval=args.log_interval,
+        mixup_alpha=args.mixup_alpha,
     )
 
     # 测试集不参与模型选择，只在训练结束后评估一次最佳模型。

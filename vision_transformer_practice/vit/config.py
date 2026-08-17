@@ -7,7 +7,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_ROOT = PROJECT_ROOT / "data"
 
-# 训练时只保存验证集准确率最高的模型，避免每个 epoch 都生成大文件。
+# 训练时只保存验证集 loss 最低的模型，避免后期过拟合模型覆盖最佳 checkpoint。
 CHECKPOINT_DIR = PROJECT_ROOT / "checkpoints"
 BEST_MODEL_PATH = CHECKPOINT_DIR / "tiny_vit_best.pt"
 
@@ -35,27 +35,42 @@ RANDOM_SEED = 42
 IMAGE_SIZE = 32
 PATCH_SIZE = 4
 IN_CHANNELS = 3
-EMBED_DIM = 192
+EMBED_DIM = 256
 
-# 注意力子层配置：192 / 3 = 64，因此每个注意力头处理 64 维特征。
-NUM_HEADS = 3
+# 注意力子层配置：256 / 4 = 64，因此每个注意力头处理 64 维特征。
+NUM_HEADS = 4
 
-# Dropout 概率为 0.1：训练时随机丢弃 10% 的元素，验证和测试时自动关闭。
+# 配合较温和的 Mixup，使用适中的 Dropout，避免正则化过强导致欠拟合。
 DROPOUT_RATE = 0.1
 
-# MLP 隐藏层通常扩展为 embed_dim 的 4 倍：192 x 4 = 768。
+# MLP 隐藏层通常扩展为 embed_dim 的 4 倍：256 x 4 = 1024。
 MLP_HIDDEN_DIM = EMBED_DIM * 4
 
-# 当前 Tiny ViT 堆叠 4 个 Encoder Block；后续可以通过这个常量调整深度。
-NUM_ENCODER_BLOCKS = 4
+# 增加 Encoder 深度，提升 CIFAR-10 特征建模能力。
+NUM_ENCODER_BLOCKS = 6
 
 # CIFAR-10 共有 10 个互斥类别，因此分类头输出 10 个类别分数。
 NUM_CLASSES = 10
 
 # 训练配置：AdamW 初始学习率、权重衰减和训练轮数。
-LEARNING_RATE = 3e-4
+LEARNING_RATE = 4e-4
 WEIGHT_DECAY = 0.05
-NUM_EPOCHS = 500
+
+# 使用较温和的 Mixup，避免训练准确率和有效监督信号被过度削弱。
+MIXUP_ALPHA = 0.1
+
+# 前几个 epoch 线性升高学习率，避免 Transformer 在训练初期不稳定。
+WARMUP_EPOCHS = 10
+
+# 给增大后的模型更充分的收敛时间。
+NUM_EPOCHS = 300
+
+# Label Smoothing 降低模型对训练标签的过度自信。
+LABEL_SMOOTHING = 0.05
+
+# Early Stopping：验证 loss 连续 20 个 epoch 没有实质改善时停止训练。
+EARLY_STOPPING_PATIENCE = 50
+EARLY_STOPPING_MIN_DELTA = 1e-5
 
 # 余弦退火最终将学习率从 3e-4 平滑降低到 1e-6。
 MIN_LEARNING_RATE = 1e-6

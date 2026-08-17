@@ -1,0 +1,28 @@
+本次针对 CIFAR-10 Tiny ViT 过拟合做了以下修改：
+
+1. config.py
+   - DROPOUT_RATE: 0.1 -> 0.2
+   - NUM_EPOCHS: 500 -> 150
+   - 新增 LABEL_SMOOTHING = 0.1
+   - 新增 EARLY_STOPPING_PATIENCE = 20
+   - 新增 EARLY_STOPPING_MIN_DELTA = 1e-4
+
+2. data.py
+   - 保留 RandomCrop(32, padding=4)
+   - 保留 RandomHorizontalFlip(p=0.5)
+   - 新增 RandAugment(num_ops=2, magnitude=9)
+   - 新增 RandomErasing(p=0.25, scale=(0.02, 0.20))
+   - 验证集/测试集仍然不做随机增强
+
+3. training.py
+   - CrossEntropyLoss 增加 label_smoothing=0.1
+   - CosineAnnealingLR 的 T_max 自动使用新的 NUM_EPOCHS=150
+   - Early Stopping 监控 validation loss
+   - 最佳 checkpoint 改为按最低 validation loss 保存
+   - 保留 fit() 原返回形式：(history, best_validation_accuracy)
+
+4. __init__.py
+   - 导出新增的 Label Smoothing 与 Early Stopping 配置常量
+
+5. 暂未加入 Mixup/CutMix
+   - 建议先运行这版观察过拟合是否明显缓解；如果仍有较大 train/val gap，再加入 Mixup/CutMix。
