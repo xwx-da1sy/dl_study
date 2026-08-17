@@ -47,7 +47,7 @@
 1. [指数加权移动平均](02_mlp_training_theory/03_optimizers_and_lr/05-01_指数加权移动平均.ipynb)
 2. [优化器：SGD、Momentum、Adam](02_mlp_training_theory/03_optimizers_and_lr/06_优化器_SGD_Momentum_Adam.ipynb)
 3. [AdaGrad：从 SGD 到自适应学习率](02_mlp_training_theory/03_optimizers_and_lr/06-00_AdaGrad从SGD到自适应学习率.ipynb)
-4. [优化器进阶：RMSProp 与 Adam 再理解](02_mlp_training_theory/03_optimizers_and_lr/06-01_优化器进阶_RMSProp与Adam再理解.ipynb)
+4. [优化器进阶：RMSProp、Adam 与 AdamW](02_mlp_training_theory/03_optimizers_and_lr/06-01_优化器进阶_RMSProp与Adam再理解.ipynb)
 5. [学习率调整策略](02_mlp_training_theory/03_optimizers_and_lr/06-02_学习率调整策略.ipynb)
 
 ### 04 泛化与正则化
