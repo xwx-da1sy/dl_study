@@ -1,5 +1,6 @@
 """Tiny ViT 的损失函数、优化器与学习率调度器。"""
 
+import json
 from pathlib import Path
 
 import torch
@@ -13,6 +14,7 @@ from .config import (
     MIN_LEARNING_RATE,
     NUM_EPOCHS,
     RANDOM_SEED,
+    TRAINING_HISTORY_PATH,
     WEIGHT_DECAY,
 )
 
@@ -240,6 +242,7 @@ def fit(
     device,
     num_epochs=NUM_EPOCHS,
     checkpoint_path=BEST_MODEL_PATH,
+    history_path=TRAINING_HISTORY_PATH,
     use_amp=True,
     log_interval=LOG_INTERVAL,
     max_grad_norm=MAX_GRAD_NORM,
@@ -259,6 +262,7 @@ def fit(
         device：CPU 或 CUDA 设备。
         num_epochs：训练总轮数。
         checkpoint_path：最佳模型保存路径；传入 None 可以关闭保存。
+        history_path：训练历史 JSON 保存路径；传入 None 可以关闭保存。
         use_amp：CUDA 上是否启用混合精度。
         log_interval：训练进度打印间隔。
         max_grad_norm：梯度裁剪上限。
@@ -278,6 +282,10 @@ def fit(
     if checkpoint_path is not None:
         checkpoint_path = Path(checkpoint_path)
         checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if history_path is not None:
+        history_path = Path(history_path)
+        history_path.parent.mkdir(parents=True, exist_ok=True)
 
     for epoch in range(1, num_epochs + 1):
         learning_rate = optimizer.param_groups[0]["lr"]
@@ -313,6 +321,11 @@ def fit(
             "validation_accuracy": validation_accuracy,
         }
         history.append(epoch_record)
+
+        if history_path is not None:
+            # 每轮覆盖写入完整 history，即使训练中途停止也能保留已经完成的曲线数据。
+            with history_path.open("w", encoding="utf-8") as history_file:
+                json.dump(history, history_file, ensure_ascii=False, indent=2)
 
         print(
             f"Epoch {epoch:03d}/{num_epochs:03d} 完成 | "

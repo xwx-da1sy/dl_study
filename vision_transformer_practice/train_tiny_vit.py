@@ -14,6 +14,7 @@ try:
         MIN_LEARNING_RATE,
         NUM_EPOCHS,
         NUM_WORKERS,
+        TRAINING_HISTORY_PATH,
         WEIGHT_DECAY,
         TinyViT,
         create_cifar10_dataloaders,
@@ -31,6 +32,7 @@ except ImportError:
         MIN_LEARNING_RATE,
         NUM_EPOCHS,
         NUM_WORKERS,
+        TRAINING_HISTORY_PATH,
         WEIGHT_DECAY,
         TinyViT,
         create_cifar10_dataloaders,
@@ -62,6 +64,12 @@ def parse_args():
         type=Path,
         default=BEST_MODEL_PATH,
         help="验证准确率最高的模型保存位置",
+    )
+    parser.add_argument(
+        "--history",
+        type=Path,
+        default=TRAINING_HISTORY_PATH,
+        help="每个 epoch 的训练与验证指标保存位置",
     )
     parser.add_argument(
         "--no-amp",
@@ -123,6 +131,7 @@ def main():
     print(f"余弦退火最低学习率：{args.min_learning_rate}")
     print(f"CUDA 混合精度：{device.type == 'cuda' and not args.no_amp}")
     print(f"最佳模型路径：{args.checkpoint}")
+    print(f"训练历史路径：{args.history}")
     print("=" * 70)
 
     _, best_validation_accuracy = fit(
@@ -135,6 +144,7 @@ def main():
         device=device,
         num_epochs=args.epochs,
         checkpoint_path=args.checkpoint,
+        history_path=args.history,
         use_amp=not args.no_amp,
         log_interval=args.log_interval,
     )
@@ -158,6 +168,7 @@ def main():
     print(f"最佳验证准确率：{best_validation_accuracy * 100:.2f}%")
     print(f"测试集 loss：{test_loss:.4f}")
     print(f"测试集 accuracy：{test_accuracy * 100:.2f}%")
+    print("下一步运行 evaluate_tiny_vit.py 生成训练曲线和测试集可视化。")
     print("=" * 70)
 
 

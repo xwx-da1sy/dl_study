@@ -11,6 +11,14 @@ DATA_ROOT = PROJECT_ROOT / "data"
 CHECKPOINT_DIR = PROJECT_ROOT / "checkpoints"
 BEST_MODEL_PATH = CHECKPOINT_DIR / "tiny_vit_best.pt"
 
+# 训练历史、测试指标和可视化图片统一保存在 results 目录。
+RESULTS_DIR = PROJECT_ROOT / "results"
+TRAINING_HISTORY_PATH = RESULTS_DIR / "training_history.json"
+EVALUATION_SUMMARY_PATH = RESULTS_DIR / "evaluation_summary.json"
+TRAINING_CURVES_PATH = RESULTS_DIR / "training_curves.png"
+CONFUSION_MATRIX_PATH = RESULTS_DIR / "confusion_matrix.png"
+SAMPLE_PREDICTIONS_PATH = RESULTS_DIR / "sample_predictions.png"
+
 # CIFAR-10 训练集共 50000 张图片，这里划分 45000 张训练、5000 张验证。
 VALIDATION_SIZE = 5_000
 
