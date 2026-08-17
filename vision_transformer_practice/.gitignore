@@ -1,0 +1,27 @@
+# ===== 大文件 / 训练产物（不应进 git）=====
+# CIFAR-10 数据集：data.py 用 download=True 自动下载
+data/
+# 训练检查点：固定随机种子重训即可复现
+checkpoints/
+
+# ===== Python 运行噪音 =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# ===== 虚拟环境 =====
+venv/
+.venv/
+env/
+
+# ===== 编辑器 / 系统 =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ===== Jupyter 检查点 =====
+.ipynb_checkpoints/
