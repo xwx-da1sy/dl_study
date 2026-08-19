@@ -1,28 +1,76 @@
-本次针对 CIFAR-10 Tiny ViT 过拟合做了以下修改：
+# Tiny ViT CIFAR-10 训练策略变更记录
 
-1. config.py
-   - DROPOUT_RATE: 0.1 -> 0.2
-   - NUM_EPOCHS: 500 -> 150
-   - 新增 LABEL_SMOOTHING = 0.1
-   - 新增 EARLY_STOPPING_PATIENCE = 20
-   - 新增 EARLY_STOPPING_MIN_DELTA = 1e-4
+## 当前版本
 
-2. data.py
-   - 保留 RandomCrop(32, padding=4)
-   - 保留 RandomHorizontalFlip(p=0.5)
-   - 新增 RandAugment(num_ops=2, magnitude=9)
-   - 新增 RandomErasing(p=0.25, scale=(0.02, 0.20))
-   - 验证集/测试集仍然不做随机增强
+当前版本针对 CIFAR-10 上从零训练 Tiny ViT 的泛化能力和验证集准确率进行了调整。
 
-3. training.py
-   - CrossEntropyLoss 增加 label_smoothing=0.1
-   - CosineAnnealingLR 的 T_max 自动使用新的 NUM_EPOCHS=150
-   - Early Stopping 监控 validation loss
-   - 最佳 checkpoint 改为按最低 validation loss 保存
-   - 保留 fit() 原返回形式：(history, best_validation_accuracy)
+### 1. config.py
 
-4. __init__.py
-   - 导出新增的 Label Smoothing 与 Early Stopping 配置常量
+- `EMBED_DIM`: `192 -> 256`
+- `NUM_HEADS`: `3 -> 4`，每个注意力头仍为 64 维
+- `NUM_ENCODER_BLOCKS`: `4 -> 6`
+- `DROPOUT_RATE`: `0.2 -> 0.1`，避免正则化过强导致欠拟合
+- `LEARNING_RATE`: `3e-4 -> 4e-4`
+- `NUM_EPOCHS`: `150 -> 300`
+- `LABEL_SMOOTHING`: `0.1 -> 0.05`
+- 新增 `MIXUP_ALPHA = 0.1`
+- 新增 `WARMUP_EPOCHS = 10`
+- `EARLY_STOPPING_PATIENCE`: `30 -> 50`
+- `EARLY_STOPPING_MIN_DELTA = 1e-5`
+- `MLP_HIDDEN_DIM` 自动设置为 `EMBED_DIM * 4`，当前为 `1024`
 
-5. 暂未加入 Mixup/CutMix
-   - 建议先运行这版观察过拟合是否明显缓解；如果仍有较大 train/val gap，再加入 Mixup/CutMix。
+### 2. data.py
+
+训练集使用：
+
+- `RandomCrop(32, padding=4)`
+- `RandomHorizontalFlip(p=0.5)`
+- `RandAugment(num_ops=2, magnitude=9)`
+- `RandomErasing(p=0.25, scale=(0.02, 0.20))`
+
+验证集和测试集只使用 `ToTensor + Normalize`，不使用随机增强。
+
+### 3. training.py
+
+- 使用 `label_smoothing=0.05` 的 `CrossEntropyLoss`。
+- 使用 AdamW 优化器。
+- 前 10 个 epoch 使用线性 Warmup，之后使用 Cosine 学习率衰减。
+- 训练阶段加入 Mixup，默认 `mixup_alpha=0.1`。
+- Early Stopping 监控验证集 loss，默认 patience 为 50，最小改善量为 `1e-5`。
+- 最佳 checkpoint 的保存规则：
+  1. 当前 `validation_accuracy` 高于历史最佳准确率时保存；
+  2. 准确率相同但 `validation_loss` 有明显下降时保存；
+  3. 只有 loss 下降但准确率下降时，不更新 checkpoint。
+- `fit()` 返回形式保持不变：
+
+```python
+(history, best_validation_accuracy)
+```
+
+### 4. train_tiny_vit.py
+
+支持通过命令行调整 `epochs`、`batch-size`、`learning-rate`、`weight-decay`、`min-learning-rate`、`mixup-alpha`、checkpoint 和 history 路径。
+
+### 5. __init__.py
+
+导出 `LABEL_SMOOTHING`、Early Stopping、`MIXUP_ALPHA` 和 `WARMUP_EPOCHS` 等训练配置。
+
+### 6. 训练说明
+
+- 模型结构从 `192维、3头、4层` 改为 `256维、4头、6层`，旧 checkpoint 与当前模型结构不兼容，需要重新训练。
+- Mixup、数据增强和 Dropout 会使训练准确率与未增强的验证准确率不可直接比较。
+- 最终测试集评估使用训练过程中保存的最佳 checkpoint，测试集不参与模型选择。
+
+## 早期版本记录
+
+- 早期版本曾将 Dropout 从 `0.1` 调整为 `0.2`。
+- 早期版本曾将训练轮数从 `500` 调整为 `150`。
+- 早期版本引入了 Label Smoothing、Early Stopping、RandAugment 和 RandomErasing。
+- 早期版本曾计划按最低验证集 loss 保存 checkpoint；当前版本已改为以验证集 accuracy 为主、验证集 loss 为平局判断。
+
+## 尚未加入
+
+- CutMix
+- EMA（Exponential Moving Average）
+- Test-Time Augmentation
+- ImageNet 预训练权重微调
