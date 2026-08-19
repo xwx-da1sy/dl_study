@@ -454,19 +454,22 @@ timm 包含大量图像模型、预训练权重以及训练、验证、推理脚
 
 ## 十三、建议的实践目录
 
-后续开始写代码时，可以新增：
+当前实践目录已经整理为：
 
 ~~~text
 vision_transformer_practice/
-├── 00_学习导航.ipynb
 ├── 01_torchvision_ViT预训练推理.ipynb
 ├── 02_ViT输入与PatchEmbedding.ipynb
-├── 03_TinyViT结构实现.ipynb
-├── 04_TinyViT_CIFAR10训练.ipynb
-├── 05_ViT实验对比.ipynb
-├── 06_torchvision_Swin预训练推理.ipynb
-├── 07_Swin核心结构与形状.ipynb
-└── README.md
+├── 03_ViT输入组装_CLS与位置编码.ipynb
+├── 04_TinyViT_EncoderBlock结构拆解.ipynb
+├── 05_训练曲线读图指南.ipynb
+├── 06_正则化技术_EarlyStopping与LabelSmoothing.ipynb
+├── 07_数据增强原理与实践.ipynb
+├── 08_vit-pytorch基础ViT源码对照.ipynb
+├── tiny_vit.py
+├── train_tiny_vit.py
+├── evaluate_tiny_vit.py
+└── infer.py
 ~~~
 
 具体训练代码可以在真正开始对应项目时再创建，不提前堆放空脚本。
@@ -489,14 +492,14 @@ Padding Mask
 
 ## 十五、近期执行清单
 
-- [ ] 完成 Transformer Encoder 整体结构复盘
-- [ ] 运行 torchvision vit_b_16 预训练推理
-- [ ] 跟踪 ViT 从图片到 patch token 的 shape
-- [ ] 阅读 torchvision ViT 的 forward
-- [ ] 从零实现 Tiny ViT
-- [ ] 在 CIFAR-10 上完成训练
+- [x] 完成 Transformer Encoder 整体结构复盘
+- [x] 运行 torchvision vit_b_16 预训练推理
+- [x] 跟踪 ViT 从图片到 patch token 的 shape
+- [x] 阅读 torchvision ViT 的 forward
+- [x] 从零实现 Tiny ViT
+- [x] 在 CIFAR-10 上完成训练
 - [ ] 与已有 CNN-MNIST/CNN 经验做结构对比
-- [ ] 阅读基础版 vit-pytorch
+- [x] 阅读基础版 vit-pytorch
 - [ ] 运行 torchvision swin_t
 - [ ] 跟踪 Swin 各 Stage 的 shape
 - [ ] 完成一次 Swin 小数据集微调

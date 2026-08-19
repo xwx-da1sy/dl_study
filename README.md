@@ -294,6 +294,12 @@
   - `vision_transformer_practice/04_TinyViT_EncoderBlock结构拆解.ipynb`
   - 理解 ViT EncoderBlock 与 Transformer Encoder 的对应关系。
   - 复习多头自注意力、FFN、残差连接、LayerNorm 的结构与参数计算。
+- 完成 Tiny ViT 的 CIFAR-10 训练、评估与训练策略实验：
+  - 最佳验证准确率约为 `89.74%`，测试准确率约为 `89.57%`。
+  - 整理训练曲线、Early Stopping、Label Smoothing、数据增强与 Mixup。
+- 对照阅读 `vit-pytorch` 基础 ViT 源码：
+  - `vision_transformer_practice/08_vit-pytorch基础ViT源码对照.ipynb`
+  - 建立自研模块与开源模块的对应关系，跟踪关键 shape，并完成 CLS/mean pooling 小实验。
 
 ## 当前阶段目标
 
@@ -321,4 +327,4 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：已完成 Transformer Encoder 基础学习，正在通过 Tiny ViT 进入视觉 Transformer 的结构实践。
+- 当前阶段：已完成 Tiny ViT 的结构、训练、评估与基础开源源码对照，下一步进行 CNN/ViT 结构对比和 Attention Map 可视化。
