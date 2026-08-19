@@ -467,6 +467,7 @@ vision_transformer_practice/
 ├── 07_数据增强原理与实践.ipynb
 ├── 08_vit-pytorch基础ViT源码对照.ipynb
 ├── 09_CNN与ViT结构对比.ipynb
+├── 10_TinyViT_AttentionMap可视化.ipynb
 ├── tiny_vit.py
 ├── train_tiny_vit.py
 ├── evaluate_tiny_vit.py
@@ -501,6 +502,7 @@ Padding Mask
 - [x] 在 CIFAR-10 上完成训练
 - [x] 与已有 CNN-MNIST/CNN 经验做结构对比
 - [x] 阅读基础版 vit-pytorch
+- [x] 提取并可视化 TinyViT 的 CLS Attention Map
 - [ ] 运行 torchvision swin_t
 - [ ] 跟踪 Swin 各 Stage 的 shape
 - [ ] 完成一次 Swin 小数据集微调

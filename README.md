@@ -304,6 +304,10 @@
   - `vision_transformer_practice/09_CNN与ViT结构对比.ipynb`
   - 从特征表示、局部感受野、全局交互、归纳偏置和计算复杂度理解两种架构。
   - 通过局部扰动实验观察 CNN 第一层、Patch Embedding 和 Encoder Block 的信息传播范围。
+- 可视化训练后 TinyViT 的注意力：
+  - `vision_transformer_practice/10_TinyViT_AttentionMap可视化.ipynb`
+  - 提取 `B x L x H x N x N` 注意力权重，还原 CLS 对 64 个 patches 的空间关注分布。
+  - 对比首层、末层和不同注意力头，并使用注意力熵观察分布的集中程度。
 
 ## 当前阶段目标
 
@@ -331,4 +335,4 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：已完成 Tiny ViT 的结构、训练、评估、开源源码对照及 CNN/ViT 结构对比，下一步进行 Attention Map 可视化。
+- 当前阶段：已完成 Tiny ViT 的结构、训练、评估、开源源码对照、CNN/ViT 对比及 Attention Map 可视化，下一步学习 Attention Rollout 或进入 Swin Transformer。
