@@ -1,8 +1,10 @@
 # ===== 大文件 / 训练产物（不应进 git）=====
 # CIFAR-10 数据集：data.py 用 download=True 自动下载
 data/
-# 训练检查点：固定随机种子重训即可复现
-checkpoints/
+# 训练检查点与结果（含 32 版 checkpoints/results 与 224 版 checkpoints_224/results_224）：
+# 固定随机种子重训即可复现，权重(.pt)、图片(.png)、指标(.json) 都不进 git
+checkpoints*/
+results*/
 
 # ===== Python 运行噪音 =====
 __pycache__/

@@ -3,5 +3,5 @@ __pycache__/
 cnn_basic_knowledge/data/
 cnn_basic_knowledge/models/
 vision_transformer_practice/data/
-vision_transformer_practice/checkpoints/
-vision_transformer_practice/results/
+vision_transformer_practice/checkpoints*/
+vision_transformer_practice/results*/
