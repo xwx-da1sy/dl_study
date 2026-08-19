@@ -300,6 +300,10 @@
 - 对照阅读 `vit-pytorch` 基础 ViT 源码：
   - `vision_transformer_practice/08_vit-pytorch基础ViT源码对照.ipynb`
   - 建立自研模块与开源模块的对应关系，跟踪关键 shape，并完成 CLS/mean pooling 小实验。
+- 对比 CNN 与 ViT 的图像建模方式：
+  - `vision_transformer_practice/09_CNN与ViT结构对比.ipynb`
+  - 从特征表示、局部感受野、全局交互、归纳偏置和计算复杂度理解两种架构。
+  - 通过局部扰动实验观察 CNN 第一层、Patch Embedding 和 Encoder Block 的信息传播范围。
 
 ## 当前阶段目标
 
@@ -327,4 +331,4 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：已完成 Tiny ViT 的结构、训练、评估与基础开源源码对照，下一步进行 CNN/ViT 结构对比和 Attention Map 可视化。
+- 当前阶段：已完成 Tiny ViT 的结构、训练、评估、开源源码对照及 CNN/ViT 结构对比，下一步进行 Attention Map 可视化。

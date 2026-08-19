@@ -466,6 +466,7 @@ vision_transformer_practice/
 ├── 06_正则化技术_EarlyStopping与LabelSmoothing.ipynb
 ├── 07_数据增强原理与实践.ipynb
 ├── 08_vit-pytorch基础ViT源码对照.ipynb
+├── 09_CNN与ViT结构对比.ipynb
 ├── tiny_vit.py
 ├── train_tiny_vit.py
 ├── evaluate_tiny_vit.py
@@ -498,7 +499,7 @@ Padding Mask
 - [x] 阅读 torchvision ViT 的 forward
 - [x] 从零实现 Tiny ViT
 - [x] 在 CIFAR-10 上完成训练
-- [ ] 与已有 CNN-MNIST/CNN 经验做结构对比
+- [x] 与已有 CNN-MNIST/CNN 经验做结构对比
 - [x] 阅读基础版 vit-pytorch
 - [ ] 运行 torchvision swin_t
 - [ ] 跟踪 Swin 各 Stage 的 shape
