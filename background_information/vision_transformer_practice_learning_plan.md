@@ -468,6 +468,7 @@ vision_transformer_practice/
 ├── 08_vit-pytorch基础ViT源码对照.ipynb
 ├── 09_CNN与ViT结构对比.ipynb
 ├── 10_TinyViT_AttentionMap可视化.ipynb
+├── 11_TinyViT_AttentionRollout与遮挡验证.ipynb
 ├── tiny_vit.py
 ├── train_tiny_vit.py
 ├── evaluate_tiny_vit.py
@@ -503,6 +504,7 @@ Padding Mask
 - [x] 与已有 CNN-MNIST/CNN 经验做结构对比
 - [x] 阅读基础版 vit-pytorch
 - [x] 提取并可视化 TinyViT 的 CLS Attention Map
+- [x] 完成 Attention Rollout 与高低关注 patch 遮挡验证
 - [ ] 运行 torchvision swin_t
 - [ ] 跟踪 Swin 各 Stage 的 shape
 - [ ] 完成一次 Swin 小数据集微调
