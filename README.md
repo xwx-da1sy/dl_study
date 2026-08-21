@@ -9,7 +9,8 @@
 - `neural_network_basic_knowledge/`：神经网络基础概念（激活函数、MLP、优化器、归一化、MNIST 实战等）。
 - `cnn_basic_knowledge/`：CNN 卷积神经网络（图像基础、卷积层、池化层、网络结构、LeNet 等）。
 - `attention_basic_knowledge/`：Attention 注意力机制（动态加权、QKV、Self-Attention、Multi-Head Attention、Transformer 等）。
-- `vision_transformer_practice/`：Vision Transformer 实践（预训练推理、Patch Embedding、CLS token、位置编码与 Tiny ViT EncoderBlock）。
+- `vision_transformer_practice/`：Vision Transformer 实践（预训练推理、Patch Embedding、Tiny ViT、可视化与 CNN 对照）。
+- `swin_transformer_basic_knowledge/`：Swin Transformer 基础（Window Attention、Shifted Window、Patch Merging 与层级结构）。
 
 ## 学习日志
 
@@ -344,4 +345,4 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：已完成 TinyViT 全流程与 CNN 公平对照基线搭建，下一步正式训练 CNN 并比较结果，然后进入 Swin Transformer。
+- 当前阶段：已完成 TinyViT 全流程与 CNN 公平对照基线搭建，并开始 Swin Transformer 学习；下一步深入拆解 Window Attention。
