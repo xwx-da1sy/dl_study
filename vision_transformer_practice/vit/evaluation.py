@@ -279,7 +279,7 @@ def plot_confusion_matrix(confusion_matrix, class_names, output_path):
     return output_path
 
 
-def plot_prediction_samples(results, class_names, output_path):
+def plot_prediction_samples(results, class_names, output_path, model_name="Tiny ViT"):
     """
     作用：绘制测试图片、真实类别、预测类别和预测置信度。
 
@@ -287,6 +287,7 @@ def plot_prediction_samples(results, class_names, output_path):
         results：collect_evaluation_results 返回的结果。
         class_names：类别名称列表。
         output_path：PNG 图片保存路径。
+        model_name：图像标题中显示的模型名称。
 
     返回值：output_path，实际保存的 Path 对象。
     """
@@ -330,7 +331,7 @@ def plot_prediction_samples(results, class_names, output_path):
             fontsize=9,
         )
 
-    figure.suptitle("Tiny ViT Predictions", fontsize=14)
+    figure.suptitle(f"{model_name} Predictions", fontsize=14)
     figure.tight_layout()
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)

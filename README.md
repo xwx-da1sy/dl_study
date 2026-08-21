@@ -312,6 +312,11 @@
   - `vision_transformer_practice/11_TinyViT_AttentionRollout与遮挡验证.ipynb`
   - 将残差路径加入注意力矩阵，按传播顺序累计 6 层 Attention Rollout。
   - 对比 Raw Attention 与 Rollout，并通过遮挡高低得分 patches 检查模型响应。
+- 准备 CNN 与 TinyViT 的公平对照实验：
+  - `vision_transformer_practice/12_CNN与TinyViT公平对照实验准备.ipynb`
+  - CNN 参数量为 `4,692,426`，与 TinyViT 的 `4,771,082` 相差约 `1.649%`。
+  - 两者复用相同 CIFAR-10 划分、增强、AdamW、交叉熵、Mixup、Warmup、余弦退火与 Early Stopping。
+  - CNN 使用独立训练与评估入口，避免覆盖 TinyViT 的 checkpoint 和结果。
 
 ## 当前阶段目标
 
@@ -339,4 +344,4 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：已完成 Tiny ViT 的结构、训练、评估、开源源码对照、CNN/ViT 对比及注意力解释实验，下一步进入 Swin Transformer。
+- 当前阶段：已完成 TinyViT 全流程与 CNN 公平对照基线搭建，下一步正式训练 CNN 并比较结果，然后进入 Swin Transformer。
