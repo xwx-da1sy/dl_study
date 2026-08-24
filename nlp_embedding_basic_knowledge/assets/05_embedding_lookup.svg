@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#49657a"/></marker>
+    <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17324d" flood-opacity=".13"/></filter>
+  </defs>
+  <rect width="1200" height="700" rx="28" fill="#f6f9fc"/>
+  <text x="600" y="55" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="30" font-weight="700" fill="#17324d">Token ID 是行号：从 Embedding 矩阵取出一整行</text>
+
+  <rect x="60" y="210" width="190" height="150" rx="24" fill="#ffffff" stroke="#b7cad8" stroke-width="3" filter="url(#shadow)"/>
+  <text x="155" y="255" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="21" fill="#647b8d">Token ID</text>
+  <circle cx="155" cy="312" r="35" fill="#286f9c"/>
+  <text x="155" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">2</text>
+
+  <line x1="265" y1="285" x2="355" y2="285" stroke="#49657a" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="310" y="257" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="18" fill="#647b8d">定位第 2 号行</text>
+
+  <rect x="370" y="105" width="430" height="430" rx="24" fill="#ffffff" stroke="#286f9c" stroke-width="4" filter="url(#shadow)"/>
+  <text x="585" y="148" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700" fill="#17324d">Embedding 矩阵 E：6 × 3</text>
+  <g font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#17324d">
+    <text x="425" y="195" font-family="Microsoft YaHei, sans-serif" fill="#647b8d">ID</text>
+    <text x="515" y="195">d₁</text><text x="605" y="195">d₂</text><text x="695" y="195">d₃</text>
+    <rect x="395" y="215" width="380" height="48" fill="#edf3f7"/><text x="425" y="246">0</text><text x="515" y="246">0.10</text><text x="605" y="246">0.20</text><text x="695" y="246">−0.10</text>
+    <rect x="395" y="265" width="380" height="48" fill="#ffffff"/><text x="425" y="296">1</text><text x="515" y="296">−0.30</text><text x="605" y="296">0.40</text><text x="695" y="296">0.50</text>
+    <rect x="395" y="315" width="380" height="54" rx="8" fill="#fff0ce" stroke="#d7a33f" stroke-width="3"/><text x="425" y="349" font-weight="700">2</text><text x="515" y="349" font-weight="700">0.70</text><text x="605" y="349" font-weight="700">−0.20</text><text x="695" y="349" font-weight="700">0.10</text>
+    <rect x="395" y="371" width="380" height="48" fill="#ffffff"/><text x="425" y="402">3</text><text x="515" y="402">0.00</text><text x="605" y="402">0.60</text><text x="695" y="402">−0.40</text>
+    <rect x="395" y="421" width="380" height="48" fill="#edf3f7"/><text x="425" y="452">4</text><text x="515" y="452">0.20</text><text x="605" y="452">0.30</text><text x="695" y="452">0.80</text>
+    <rect x="395" y="471" width="380" height="48" fill="#ffffff"/><text x="425" y="502">5</text><text x="515" y="502">−0.50</text><text x="605" y="502">0.10</text><text x="695" y="502">0.40</text>
+  </g>
+
+  <line x1="815" y1="342" x2="900" y2="342" stroke="#d7a33f" stroke-width="6" marker-end="url(#arrow)"/>
+
+  <rect x="915" y="230" width="230" height="220" rx="24" fill="#ffffff" stroke="#d7a33f" stroke-width="4" filter="url(#shadow)"/>
+  <text x="1030" y="275" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="21" fill="#647b8d">得到 3 维向量</text>
+  <g font-family="Arial, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#17324d">
+    <rect x="950" y="312" width="62" height="62" rx="12" fill="#fff0ce"/><text x="981" y="352">0.70</text>
+    <rect x="1018" y="312" width="72" height="62" rx="12" fill="#fff0ce"/><text x="1054" y="352">−0.20</text>
+    <rect x="1096" y="312" width="62" height="62" rx="12" fill="#fff0ce"/><text x="1127" y="352">0.10</text>
+  </g>
+
+  <rect x="175" y="585" width="850" height="68" rx="20" fill="#eaf3f8"/>
+  <text x="600" y="628" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700" fill="#17324d">Embedding Lookup 不是对数字 2 做计算，而是把 2 当作地址去取参数</text>
+</svg>

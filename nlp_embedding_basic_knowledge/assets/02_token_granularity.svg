@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#49657a"/></marker>
+  </defs>
+  <rect width="1200" height="660" rx="28" fill="#f6f9fc"/>
+  <text x="600" y="55" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="30" font-weight="700" fill="#17324d">同一段文本可以使用不同切分粒度</text>
+  <rect x="430" y="85" width="340" height="65" rx="18" fill="#17324d"/>
+  <text x="600" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">playing football</text>
+
+  <text x="105" y="233" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" fill="#286f9c">字符级</text>
+  <line x1="205" y1="225" x2="275" y2="225" stroke="#49657a" stroke-width="4" marker-end="url(#arrow)"/>
+  <g font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#17324d">
+    <rect x="300" y="190" width="52" height="58" rx="12" fill="#d9f0ff"/><text x="326" y="227">p</text>
+    <rect x="362" y="190" width="52" height="58" rx="12" fill="#d9f0ff"/><text x="388" y="227">l</text>
+    <rect x="424" y="190" width="52" height="58" rx="12" fill="#d9f0ff"/><text x="450" y="227">a</text>
+    <rect x="486" y="190" width="52" height="58" rx="12" fill="#d9f0ff"/><text x="512" y="227">y</text>
+    <rect x="548" y="190" width="52" height="58" rx="12" fill="#d9f0ff"/><text x="574" y="227">i</text>
+    <rect x="610" y="190" width="52" height="58" rx="12" fill="#d9f0ff"/><text x="636" y="227">n</text>
+    <rect x="672" y="190" width="52" height="58" rx="12" fill="#d9f0ff"/><text x="698" y="227">g</text>
+    <text x="751" y="227" font-size="28">…</text>
+  </g>
+  <text x="1050" y="228" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="20" fill="#647b8d">词表小，序列长</text>
+
+  <text x="105" y="358" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" fill="#549569">单词级</text>
+  <line x1="205" y1="350" x2="275" y2="350" stroke="#49657a" stroke-width="4" marker-end="url(#arrow)"/>
+  <g font-family="Arial, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#17324d">
+    <rect x="300" y="315" width="205" height="62" rx="14" fill="#e5f6ea" stroke="#63aa77" stroke-width="2"/><text x="402" y="354">playing</text>
+    <rect x="530" y="315" width="205" height="62" rx="14" fill="#e5f6ea" stroke="#63aa77" stroke-width="2"/><text x="632" y="354">football</text>
+  </g>
+  <text x="1050" y="353" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="20" fill="#647b8d">序列短，词表大</text>
+
+  <text x="105" y="483" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" fill="#b17a21">子词级</text>
+  <line x1="205" y1="475" x2="275" y2="475" stroke="#49657a" stroke-width="4" marker-end="url(#arrow)"/>
+  <g font-family="Arial, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#17324d">
+    <rect x="300" y="440" width="145" height="62" rx="14" fill="#fff0ce" stroke="#d7a33f" stroke-width="2"/><text x="372" y="479">play</text>
+    <rect x="460" y="440" width="115" height="62" rx="14" fill="#fff0ce" stroke="#d7a33f" stroke-width="2"/><text x="517" y="479">ing</text>
+    <rect x="590" y="440" width="205" height="62" rx="14" fill="#fff0ce" stroke="#d7a33f" stroke-width="2"/><text x="692" y="479">football</text>
+  </g>
+  <text x="1050" y="478" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="20" fill="#647b8d">两者之间的折中</text>
+
+  <rect x="190" y="555" width="820" height="62" rx="18" fill="#eaf3f8"/>
+  <text x="600" y="595" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="22" font-weight="700" fill="#17324d">现代语言模型通常使用子词：既能复用常见片段，也能组合生僻词</text>
+</svg>

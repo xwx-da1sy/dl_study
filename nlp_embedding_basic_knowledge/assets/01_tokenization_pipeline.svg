@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#49657a"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-20%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#17324d" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="560" rx="28" fill="#f6f9fc"/>
+  <text x="600" y="58" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="30" font-weight="700" fill="#17324d">Tokenizer 把整段文本切成离散单元</text>
+
+  <rect x="55" y="150" width="270" height="190" rx="22" fill="#ffffff" stroke="#b7cad8" stroke-width="3" filter="url(#shadow)"/>
+  <text x="190" y="198" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="21" fill="#647b8d">原始文本</text>
+  <text x="190" y="268" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="30" font-weight="700" fill="#17324d">我喜欢深度学习</text>
+
+  <line x1="335" y1="245" x2="430" y2="245" stroke="#49657a" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="445" y="130" width="260" height="230" rx="28" fill="#286f9c" filter="url(#shadow)"/>
+  <text x="575" y="196" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="29" font-weight="700" fill="#ffffff">Tokenizer</text>
+  <line x1="495" y1="225" x2="655" y2="225" stroke="#9dd4f2" stroke-width="3"/>
+  <text x="575" y="270" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#e8f6ff">按照配套规则切分</text>
+  <text x="575" y="309" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#e8f6ff">可能加入特殊 Token</text>
+
+  <line x1="715" y1="245" x2="800" y2="245" stroke="#49657a" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="815" y="105" width="330" height="280" rx="22" fill="#ffffff" stroke="#b7cad8" stroke-width="3" filter="url(#shadow)"/>
+  <text x="980" y="151" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="21" fill="#647b8d">Token 序列</text>
+  <g font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700" text-anchor="middle">
+    <rect x="855" y="190" width="95" height="58" rx="14" fill="#d9f0ff" stroke="#5aa6d1" stroke-width="2"/>
+    <text x="902" y="227" fill="#17324d">我</text>
+    <rect x="970" y="190" width="125" height="58" rx="14" fill="#e5f6ea" stroke="#63aa77" stroke-width="2"/>
+    <text x="1032" y="227" fill="#17324d">喜欢</text>
+    <rect x="855" y="273" width="110" height="58" rx="14" fill="#fff0ce" stroke="#d7a33f" stroke-width="2"/>
+    <text x="910" y="310" fill="#17324d">深度</text>
+    <rect x="985" y="273" width="110" height="58" rx="14" fill="#f2e6ff" stroke="#9871bd" stroke-width="2"/>
+    <text x="1040" y="310" fill="#17324d">学习</text>
+  </g>
+
+  <rect x="215" y="435" width="770" height="72" rx="20" fill="#fff4d8" stroke="#e1b555" stroke-width="2"/>
+  <text x="600" y="480" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700" fill="#755116">此时只完成“切分”，还没有产生 Token ID 和向量</text>
+</svg>

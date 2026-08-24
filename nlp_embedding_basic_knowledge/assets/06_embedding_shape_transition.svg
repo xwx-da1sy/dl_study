@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660">
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#49657a"/></marker></defs>
+  <rect width="1200" height="660" rx="28" fill="#f6f9fc"/>
+  <text x="600" y="55" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="30" font-weight="700" fill="#17324d">Embedding 前后：每个整数位置展开为一个 D 维向量</text>
+
+  <text x="225" y="125" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700" fill="#17324d">Token ID Tensor</text>
+  <text x="225" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#286f9c">B × L</text>
+  <g font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#17324d">
+    <rect x="70" y="205" width="68" height="68" rx="12" fill="#d9f0ff"/><text x="104" y="248">2</text>
+    <rect x="148" y="205" width="68" height="68" rx="12" fill="#d9f0ff"/><text x="182" y="248">3</text>
+    <rect x="226" y="205" width="68" height="68" rx="12" fill="#d9f0ff"/><text x="260" y="248">5</text>
+    <rect x="304" y="205" width="68" height="68" rx="12" fill="#e1e7eb"/><text x="338" y="248" fill="#7b8b96">0</text>
+    <rect x="70" y="285" width="68" height="68" rx="12" fill="#e5f6ea"/><text x="104" y="328">2</text>
+    <rect x="148" y="285" width="68" height="68" rx="12" fill="#e5f6ea"/><text x="182" y="328">3</text>
+    <rect x="226" y="285" width="68" height="68" rx="12" fill="#e5f6ea"/><text x="260" y="328">4</text>
+    <rect x="304" y="285" width="68" height="68" rx="12" fill="#e5f6ea"/><text x="338" y="328">5</text>
+  </g>
+  <text x="40" y="244" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#647b8d">句 A</text>
+  <text x="40" y="324" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#647b8d">句 B</text>
+  <text x="225" y="400" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#647b8d">每个位置：1 个整数地址</text>
+
+  <line x1="410" y1="280" x2="520" y2="280" stroke="#49657a" stroke-width="5" marker-end="url(#arrow)"/>
+  <rect x="430" y="195" width="70" height="65" rx="12" fill="#286f9c"/>
+  <text x="465" y="224" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#ffffff">E</text>
+  <text x="465" y="246" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#dff3ff">V × D</text>
+  <text x="465" y="330" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="18" fill="#647b8d">逐位置查表</text>
+
+  <text x="850" y="125" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700" fill="#17324d">Token 向量 Tensor</text>
+  <text x="850" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#286f9c">B × L × D</text>
+  <g stroke-width="2">
+    <g fill="#d9f0ff" stroke="#5aa6d1">
+      <rect x="565" y="205" width="240" height="45" rx="10"/><rect x="825" y="205" width="240" height="45" rx="10"/>
+      <rect x="565" y="260" width="240" height="45" rx="10"/><rect x="825" y="260" width="240" height="45" rx="10"/>
+    </g>
+    <g fill="#e5f6ea" stroke="#63aa77">
+      <rect x="565" y="340" width="240" height="45" rx="10"/><rect x="825" y="340" width="240" height="45" rx="10"/>
+      <rect x="565" y="395" width="240" height="45" rx="10"/><rect x="825" y="395" width="240" height="45" rx="10"/>
+    </g>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#17324d">
+    <text x="685" y="234">[ e₂₁, e₂₂, …, e₂ᴅ ]</text><text x="945" y="234">[ e₃₁, e₃₂, …, e₃ᴅ ]</text>
+    <text x="685" y="289">[ e₅₁, e₅₂, …, e₅ᴅ ]</text><text x="945" y="289">[ e₀₁, e₀₂, …, e₀ᴅ ]</text>
+    <text x="685" y="369">[ e₂₁, e₂₂, …, e₂ᴅ ]</text><text x="945" y="369">[ e₃₁, e₃₂, …, e₃ᴅ ]</text>
+    <text x="685" y="424">[ e₄₁, e₄₂, …, e₄ᴅ ]</text><text x="945" y="424">[ e₅₁, e₅₂, …, e₅ᴅ ]</text>
+  </g>
+  <text x="535" y="244" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#647b8d">句 A</text>
+  <text x="535" y="379" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#647b8d">句 B</text>
+  <text x="850" y="482" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="19" fill="#647b8d">每个位置：D 个可训练数值</text>
+
+  <rect x="185" y="540" width="830" height="70" rx="20" fill="#fff4d8" stroke="#e1b555" stroke-width="2"/>
+  <text x="600" y="583" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" fill="#755116">形状变化：B × L  →  B × L × D</text>
+</svg>
