@@ -345,4 +345,4 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：已完成 TinyViT 全流程与 CNN 公平对照基线搭建，并开始 Swin Transformer 学习；下一步深入拆解 Window Attention。
+- 当前阶段：已完成原始 Swin Transformer 核心理论，包括 Window Attention、Shifted Window、Attention Mask、相对位置偏置、Patch Merging、完整 Swin Block 与四阶段结构；下一步可进入预训练推理和 shape 跟踪实践。

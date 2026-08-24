@@ -8,5 +8,8 @@
 - `02_WindowAttention窗口划分与QKV形状.ipynb`：跟踪窗口划分、QKV、多头注意力和窗口还原的完整 shape。
 - `03_ShiftedWindow移动窗口与AttentionMask.ipynb`：理解窗口移动、循环移位、Attention Mask 和跨窗口信息传播。
 - `04_相对位置偏置_RelativePositionBias.ipynb`：理解相对位移、偏置表、索引矩阵及其与 Attention logits 的结合。
+- `05_PatchMerging层级下采样.ipynb`：理解 2 × 2 token 合并、通道压缩和层级下采样。
+- `06_SwinBlock完整结构.ipynb`：理解 LayerNorm、残差连接、MLP 及 W-MSA/SW-MSA Block 的完整组成。
+- `07_SwinTransformer完整结构与复盘.ipynb`：串联四个 Stage、分类头、CNN/ViT 对比和理论完成标准。
 
-后续按概念顺序继续学习 Patch Merging 和完整 Swin Block；只有明确进入实践阶段后才加入必要代码。
+原始 Swin Transformer 核心理论已经完成。后续只有明确进入预训练推理、shape 跟踪或微调实践时才加入必要代码。
