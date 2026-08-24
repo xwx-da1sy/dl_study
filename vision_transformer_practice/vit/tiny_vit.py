@@ -10,8 +10,8 @@ import torch
 # 作为 vision_transformer_practice.tiny_vit 导入时使用相对导入；
 # 直接运行 python tiny_vit.py 时使用同级顶层导入。
 try:
-    from .vit import *  # noqa: F403
-    from .vit import __all__ as _vit_exports
+    from vision_transformer_practice.vit import *  # noqa: F403
+    from vision_transformer_practice.vit import __all__ as _vit_exports
 except ImportError:
     from vit import *  # noqa: F403
     from vit import __all__ as _vit_exports

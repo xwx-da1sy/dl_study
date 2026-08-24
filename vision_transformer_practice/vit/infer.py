@@ -20,7 +20,7 @@ from torchvision import transforms
 try:
     from vit import BEST_MODEL_PATH, TinyViT
 except ImportError:
-    from .vit import BEST_MODEL_PATH, TinyViT
+    from vision_transformer_practice.vit import BEST_MODEL_PATH, TinyViT
 
 
 # CIFAR-10 的 10 个类别名称，顺序与 torchvision 保持一致。

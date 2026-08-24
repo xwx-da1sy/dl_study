@@ -19,7 +19,7 @@ import torch
 from torch import nn
 
 try:
-    from .vit import (
+    from vision_transformer_practice.vit import (
         BATCH_SIZE,
         BEST_MODEL_PATH,
         NUM_CLASSES,

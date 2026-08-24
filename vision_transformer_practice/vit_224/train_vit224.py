@@ -1,4 +1,8 @@
-"""在 CIFAR-10 上正式训练 Tiny ViT。"""
+"""在 CIFAR-10（Resize 到 224×224）上训练 224 ViT。
+
+架构：image 224 / patch 16 / embed 256 / heads 4 / blocks 6 / classes 10。
+注意：CIFAR-10 原图 32×32 放大到 224 不增加真实信息，本工程目的是练手 224 ViT 架构流程。
+"""
 
 import argparse
 from pathlib import Path
@@ -6,7 +10,7 @@ from pathlib import Path
 import torch
 
 try:
-    from .vit import (
+    from vision_transformer_practice.vit_224 import (
         BATCH_SIZE,
         BEST_MODEL_PATH,
         LEARNING_RATE,
@@ -26,7 +30,7 @@ try:
         set_random_seed,
     )
 except ImportError:
-    from vit import (
+    from vit_224 import (
         BATCH_SIZE,
         BEST_MODEL_PATH,
         LEARNING_RATE,
@@ -55,7 +59,7 @@ def parse_args():
 
     返回值：args，包含 epoch、batch_size、学习率和检查点路径等配置。
     """
-    parser = argparse.ArgumentParser(description="在 CIFAR-10 上训练 Tiny ViT")
+    parser = argparse.ArgumentParser(description="在 CIFAR-10（Resize 224）上训练 224 ViT")
     parser.add_argument("--epochs", type=int, default=NUM_EPOCHS)
     parser.add_argument("--batch-size", type=int, default=BATCH_SIZE)
     parser.add_argument("--num-workers", type=int, default=NUM_WORKERS)
@@ -68,7 +72,7 @@ def parse_args():
         "--checkpoint",
         type=Path,
         default=BEST_MODEL_PATH,
-        help="验证准确率最高的模型保存位置",
+        help="验证 loss 最低的模型保存位置",
     )
     parser.add_argument(
         "--history",
@@ -90,7 +94,7 @@ def main():
 
     参数：无；训练配置由 parse_args 从命令行读取。
 
-    返回值：无；训练进度打印到终端，最佳权重保存到 checkpoints 目录。
+    返回值：无；训练进度打印到终端，最佳权重保存到 checkpoints_224 目录。
     """
     args = parse_args()
     set_random_seed()
@@ -124,7 +128,7 @@ def main():
     )
 
     print("=" * 70)
-    print("Tiny ViT 训练准备完成")
+    print("224 ViT 训练准备完成")
     print(f"设备：{device}")
     print(f"类别：{class_names}")
     print(f"训练/验证/测试：{len(train_loader.dataset)}/"
@@ -175,7 +179,7 @@ def main():
     print(f"最佳验证准确率：{best_validation_accuracy * 100:.2f}%")
     print(f"测试集 loss：{test_loss:.4f}")
     print(f"测试集 accuracy：{test_accuracy * 100:.2f}%")
-    print("下一步运行 evaluate_tiny_vit.py 生成训练曲线和测试集可视化。")
+    print("下一步运行 evaluate_vit224.py 生成训练曲线和测试集可视化。")
     print("=" * 70)
 
 

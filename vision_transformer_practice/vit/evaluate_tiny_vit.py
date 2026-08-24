@@ -1,4 +1,4 @@
-"""加载最佳 224 ViT 权重，评估测试集并生成可视化结果。"""
+"""加载最佳 Tiny ViT 权重，评估测试集并生成可视化结果。"""
 
 import argparse
 from pathlib import Path
@@ -7,7 +7,7 @@ import torch
 from torch import nn
 
 try:
-    from .vit_224 import (
+    from vision_transformer_practice.vit import (
         BATCH_SIZE,
         BEST_MODEL_PATH,
         NUM_CLASSES,
@@ -24,7 +24,7 @@ try:
         save_evaluation_summary,
     )
 except ImportError:
-    from vit_224 import (
+    from vit import (
         BATCH_SIZE,
         BEST_MODEL_PATH,
         NUM_CLASSES,
@@ -50,7 +50,7 @@ def parse_args():
 
     返回值：args，包含评估与可视化配置。
     """
-    parser = argparse.ArgumentParser(description="评估并可视化 224 ViT")
+    parser = argparse.ArgumentParser(description="评估并可视化 Tiny ViT")
     parser.add_argument("--checkpoint", type=Path, default=BEST_MODEL_PATH)
     parser.add_argument("--history", type=Path, default=TRAINING_HISTORY_PATH)
     parser.add_argument("--output-dir", type=Path, default=RESULTS_DIR)
@@ -69,13 +69,13 @@ def main():
 
     参数：无；评估配置由 parse_args 从命令行读取。
 
-    返回值：无；指标打印到终端并保存到 results_224 目录。
+    返回值：无；指标打印到终端并保存到 results 目录。
     """
     args = parse_args()
     if not args.checkpoint.exists():
         raise FileNotFoundError(
             f"没有找到模型检查点：{args.checkpoint}\n"
-            "请先运行 train_vit224.py 完成训练。"
+            "请先运行 train_tiny_vit.py 完成训练。"
         )
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
