@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 470" role="img" aria-labelledby="title desc">
+  <title id="title">相对位置偏置的查表过程</title><desc id="desc">展示查询 token 与窗口内其他 token 的相对位移映射到 169 种位移，再查表生成每个头的四十九乘四十九偏置矩阵。</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#475569"/></marker><style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#0f172a}.t{font-size:24px;font-weight:700}.h{font-size:18px;font-weight:700}.s{font-size:14px;fill:#475569}.arr{stroke:#475569;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1050" height="470" fill="#f8fafc"/><text x="525" y="38" text-anchor="middle" class="t">相对位置偏置：按“方向＋距离”查表</text>
+  <g transform="translate(70 95)"><text x="140" y="-20" text-anchor="middle" class="h">7 × 7 窗口</text><rect width="280" height="280" fill="#fff" stroke="#64748b"/>
+    <path d="M40 0V280M80 0V280M120 0V280M160 0V280M200 0V280M240 0V280M0 40H280M0 80H280M0 120H280M0 160H280M0 200H280M0 240H280" stroke="#cbd5e1"/>
+    <rect x="120" y="120" width="40" height="40" fill="#2563eb"/><text x="140" y="146" text-anchor="middle" font-size="16" fill="#fff">Q</text>
+    <circle cx="220" cy="100" r="13" fill="#f97316"/><line class="arr" x1="155" y1="128" x2="205" y2="105"/><text x="235" y="82" class="s">右 2、上 1</text>
+    <circle cx="60" cy="220" r="13" fill="#16a34a"/><line class="arr" x1="127" y1="155" x2="70" y2="208"/><text x="12" y="247" class="s">左 2、下 2</text>
+  </g>
+  <line class="arr" x1="380" y1="235" x2="455" y2="235"/>
+  <g transform="translate(475 105)"><rect width="210" height="250" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="105" y="40" text-anchor="middle" class="h">相对位移类型</text><text x="105" y="82" text-anchor="middle" class="h">高度：−6 到 6</text><text x="105" y="116" text-anchor="middle" class="h">宽度：−6 到 6</text><text x="105" y="163" text-anchor="middle" class="t">13 × 13</text><text x="105" y="203" text-anchor="middle" class="h">共 169 种</text><text x="105" y="230" text-anchor="middle" class="s">相同位移共享参数</text></g>
+  <line class="arr" x1="700" y1="235" x2="770" y2="235"/>
+  <g transform="translate(790 105)"><rect width="200" height="250" rx="12" fill="#e9d5ff" stroke="#9333ea" stroke-width="2"/><text x="100" y="42" text-anchor="middle" class="h">查偏置表</text><text x="100" y="83" text-anchor="middle" class="h">169 × head 数</text><text x="100" y="133" text-anchor="middle" class="s">每个 token 对</text><text x="100" y="158" text-anchor="middle" class="s">找到自己的表项</text><text x="100" y="202" text-anchor="middle" class="h">得到每个 head 的</text><text x="100" y="229" text-anchor="middle" class="h">49 × 49 偏置</text></g>
+  <text x="525" y="430" text-anchor="middle" class="s">QK 点积描述内容关系；相对位置偏置补充方向和距离偏好</text>
+</svg>

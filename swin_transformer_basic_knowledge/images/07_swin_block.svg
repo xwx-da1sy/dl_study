@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 430" role="img" aria-labelledby="title desc">
+  <title id="title">完整 Swin Block</title><desc id="desc">展示输入依次经过 LayerNorm、W-MSA 或 SW-MSA、残差相加、LayerNorm、MLP、第二次残差相加后输出。</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#475569"/></marker><style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#0f172a}.t{font-size:24px;font-weight:700}.h{font-size:17px;font-weight:700}.s{font-size:13px;fill:#475569}.box{stroke-width:2;rx:12}.arr{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a)}.skip{stroke:#dc2626;stroke-width:2;fill:none;marker-end:url(#a)}</style></defs>
+  <rect width="1150" height="430" fill="#f8fafc"/><text x="575" y="38" text-anchor="middle" class="t">一个完整 Swin Block：两次子层计算，两次残差相加</text>
+  <g transform="translate(30 145)">
+    <rect class="box" x="0" y="0" width="100" height="80" fill="#e2e8f0" stroke="#64748b"/><text x="50" y="47" text-anchor="middle" class="h">输入</text>
+    <line class="arr" x1="105" y1="40" x2="145" y2="40"/>
+    <rect class="box" x="150" y="0" width="110" height="80" fill="#dbeafe" stroke="#2563eb"/><text x="205" y="38" text-anchor="middle" class="h">LayerNorm</text><text x="205" y="60" text-anchor="middle" class="s">稳定特征</text>
+    <line class="arr" x1="265" y1="40" x2="305" y2="40"/>
+    <rect class="box" x="310" y="0" width="150" height="80" fill="#dcfce7" stroke="#16a34a"/><text x="385" y="35" text-anchor="middle" class="h">W-MSA</text><text x="385" y="58" text-anchor="middle" class="h">或 SW-MSA</text>
+    <line class="arr" x1="465" y1="40" x2="505" y2="40"/>
+    <circle cx="535" cy="40" r="27" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><text x="535" y="48" text-anchor="middle" class="t">＋</text>
+    <line class="arr" x1="562" y1="40" x2="602" y2="40"/>
+    <rect class="box" x="607" y="0" width="110" height="80" fill="#dbeafe" stroke="#2563eb"/><text x="662" y="38" text-anchor="middle" class="h">LayerNorm</text><text x="662" y="60" text-anchor="middle" class="s">再次整理</text>
+    <line class="arr" x1="722" y1="40" x2="762" y2="40"/>
+    <rect class="box" x="767" y="0" width="110" height="80" fill="#fef3c7" stroke="#d97706"/><text x="822" y="38" text-anchor="middle" class="h">MLP</text><text x="822" y="60" text-anchor="middle" class="s">token 内加工</text>
+    <line class="arr" x1="882" y1="40" x2="922" y2="40"/>
+    <circle cx="952" cy="40" r="27" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><text x="952" y="48" text-anchor="middle" class="t">＋</text>
+    <line class="arr" x1="979" y1="40" x2="1019" y2="40"/>
+    <rect class="box" x="1024" y="0" width="90" height="80" fill="#e9d5ff" stroke="#9333ea"/><text x="1069" y="47" text-anchor="middle" class="h">输出</text>
+    <path class="skip" d="M50 0V-70H535V8"/><text x="285" y="-83" text-anchor="middle" class="s" fill="#dc2626">第一次残差：原输入直接加回</text>
+    <path class="skip" d="M535 68V145H952V68"/><text x="744" y="173" text-anchor="middle" class="s" fill="#dc2626">第二次残差：MLP 前的输入直接加回</text>
+  </g>
+  <text x="575" y="390" text-anchor="middle" class="s">Block 前后 shape 不变；W-MSA Block 与 SW-MSA Block 只在 Attention 分组方式上不同</text>
+</svg>

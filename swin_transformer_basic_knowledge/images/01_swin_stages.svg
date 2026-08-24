@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">Swin-T 四阶段整体结构</title>
+  <desc id="desc">展示输入图片经过 Patch Embedding、四个 Stage、三次 Patch Merging 和分类头的形状变化。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#475569"/></marker>
+    <style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#0f172a}.title{font-size:24px;font-weight:700}.label{font-size:17px;font-weight:700}.shape{font-size:14px;fill:#334155}.note{font-size:13px;fill:#64748b}.box{stroke-width:2;rx:12}.arrow{stroke:#475569;stroke-width:2;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1200" height="430" fill="#f8fafc"/>
+  <text x="600" y="38" text-anchor="middle" class="title">Swin-T：分辨率逐层降低，通道逐层增加</text>
+  <g transform="translate(30 95)">
+    <rect class="box" x="0" y="0" width="125" height="100" fill="#e2e8f0" stroke="#64748b"/>
+    <text x="62" y="38" text-anchor="middle" class="label">输入图片</text><text x="62" y="66" text-anchor="middle" class="shape">224 × 224 × 3</text>
+    <line class="arrow" x1="130" y1="50" x2="175" y2="50"/>
+    <rect class="box" x="180" y="0" width="145" height="100" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="252" y="31" text-anchor="middle" class="label">Patch</text><text x="252" y="54" text-anchor="middle" class="label">Embedding</text><text x="252" y="80" text-anchor="middle" class="shape">56 × 56 × 96</text>
+    <line class="arrow" x1="330" y1="50" x2="375" y2="50"/>
+    <rect class="box" x="380" y="0" width="145" height="100" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="452" y="34" text-anchor="middle" class="label">Stage 1</text><text x="452" y="61" text-anchor="middle" class="shape">2 Blocks</text><text x="452" y="82" text-anchor="middle" class="shape">56 × 56 × 96</text>
+    <line class="arrow" x1="530" y1="50" x2="575" y2="50"/>
+    <rect class="box" x="580" y="0" width="145" height="100" fill="#fef3c7" stroke="#d97706"/>
+    <text x="652" y="33" text-anchor="middle" class="label">Patch</text><text x="652" y="56" text-anchor="middle" class="label">Merging</text><text x="652" y="81" text-anchor="middle" class="shape">28 × 28 × 192</text>
+    <line class="arrow" x1="730" y1="50" x2="775" y2="50"/>
+    <rect class="box" x="780" y="0" width="145" height="100" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="852" y="34" text-anchor="middle" class="label">Stage 2</text><text x="852" y="61" text-anchor="middle" class="shape">2 Blocks</text><text x="852" y="82" text-anchor="middle" class="shape">28 × 28 × 192</text>
+    <line class="arrow" x1="930" y1="50" x2="975" y2="50"/>
+    <rect class="box" x="980" y="0" width="145" height="100" fill="#fef3c7" stroke="#d97706"/>
+    <text x="1052" y="33" text-anchor="middle" class="label">Patch</text><text x="1052" y="56" text-anchor="middle" class="label">Merging</text><text x="1052" y="81" text-anchor="middle" class="shape">14 × 14 × 384</text>
+  </g>
+  <g transform="translate(245 260)">
+    <rect class="box" x="0" y="0" width="145" height="100" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="72" y="34" text-anchor="middle" class="label">Stage 3</text><text x="72" y="61" text-anchor="middle" class="shape">6 Blocks</text><text x="72" y="82" text-anchor="middle" class="shape">14 × 14 × 384</text>
+    <line class="arrow" x1="150" y1="50" x2="195" y2="50"/>
+    <rect class="box" x="200" y="0" width="145" height="100" fill="#fef3c7" stroke="#d97706"/>
+    <text x="272" y="33" text-anchor="middle" class="label">Patch</text><text x="272" y="56" text-anchor="middle" class="label">Merging</text><text x="272" y="81" text-anchor="middle" class="shape">7 × 7 × 768</text>
+    <line class="arrow" x1="350" y1="50" x2="395" y2="50"/>
+    <rect class="box" x="400" y="0" width="145" height="100" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="472" y="34" text-anchor="middle" class="label">Stage 4</text><text x="472" y="61" text-anchor="middle" class="shape">2 Blocks</text><text x="472" y="82" text-anchor="middle" class="shape">7 × 7 × 768</text>
+    <line class="arrow" x1="550" y1="50" x2="595" y2="50"/>
+    <rect class="box" x="600" y="0" width="170" height="100" fill="#f3e8ff" stroke="#9333ea"/>
+    <text x="685" y="31" text-anchor="middle" class="label">平均池化</text><text x="685" y="56" text-anchor="middle" class="label">＋ 分类头</text><text x="685" y="81" text-anchor="middle" class="shape">B × 类别数</text>
+  </g>
+  <text x="600" y="410" text-anchor="middle" class="note">Stage 内 shape 不变；Stage 之间由 Patch Merging 完成下采样</text>
+</svg>

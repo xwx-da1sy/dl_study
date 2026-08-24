@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 450" role="img" aria-labelledby="title desc">
+  <title id="title">Attention Mask 如何屏蔽连接</title><desc id="desc">展示候选 token D 的分数被 mask 改成极小负数，经过 Softmax 后权重接近零。</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#475569"/></marker><style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#0f172a}.t{font-size:24px;font-weight:700}.h{font-size:18px;font-weight:700}.s{font-size:14px}.arr{stroke:#475569;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1050" height="450" fill="#f8fafc"/><text x="525" y="38" text-anchor="middle" class="t">Mask 屏蔽的是 Attention 连接，不是删除 token</text>
+  <g transform="translate(55 95)"><text x="180" y="-20" text-anchor="middle" class="h">① 原始 Attention 分数</text><rect width="360" height="190" rx="12" fill="#fff" stroke="#94a3b8"/>
+    <g class="h" text-anchor="middle"><text x="55" y="45">候选</text><text x="125" y="45">A</text><text x="195" y="45">B</text><text x="265" y="45">C</text><text x="330" y="45">D</text><text x="55" y="105">分数</text><text x="125" y="105">2</text><text x="195" y="105">1</text><text x="265" y="105">3</text><text x="330" y="105">4</text></g>
+    <rect x="297" y="62" width="62" height="70" fill="#fee2e2"/><text x="328" y="155" text-anchor="middle" class="s" fill="#dc2626">本来最高</text>
+  </g>
+  <line class="arr" x1="430" y1="190" x2="500" y2="190"/><text x="465" y="168" text-anchor="middle" class="s">禁止 A→D</text>
+  <g transform="translate(520 95)"><text x="220" y="-20" text-anchor="middle" class="h">② mask 后，再做 Softmax</text><rect width="440" height="190" rx="12" fill="#fff" stroke="#94a3b8"/>
+    <g class="h" text-anchor="middle"><text x="70" y="45">候选</text><text x="150" y="45">A</text><text x="230" y="45">B</text><text x="310" y="45">C</text><text x="395" y="45">D</text><text x="70" y="98">处理后</text><text x="150" y="98">2</text><text x="230" y="98">1</text><text x="310" y="98">3</text><text x="395" y="98">极小负数</text><text x="70" y="150">权重</text><text x="150" y="150">保留</text><text x="230" y="150">保留</text><text x="310" y="150">保留</text><text x="395" y="150" fill="#dc2626">≈ 0</text></g>
+  </g>
+  <g transform="translate(115 340)"><circle cx="40" cy="35" r="27" fill="#dbeafe" stroke="#2563eb"/><text x="40" y="41" text-anchor="middle" class="h">A</text><circle cx="310" cy="35" r="27" fill="#dcfce7" stroke="#16a34a"/><text x="310" y="41" text-anchor="middle" class="h">D</text><line x1="68" y1="35" x2="282" y2="35" stroke="#dc2626" stroke-width="4" stroke-dasharray="10 6"/><path d="M164 15L186 55M186 15L164 55" stroke="#dc2626" stroke-width="5"/><text x="490" y="31" class="h">D 仍然存在，只是 A 不能读取 D</text><text x="490" y="58" class="s">Swin 用它删除循环移位制造的错误邻居</text></g>
+</svg>

@@ -2,6 +2,8 @@
 
 本目录单独记录 Swin Transformer 的概念学习，不与 `vision_transformer_practice` 混放。
 
+`images/` 保存与各课对应的 SVG 教学示意图，包括窗口划分、移动窗口、mask、相对位置偏置、Patch Merging、Swin Block 和四阶段结构。
+
 当前笔记：
 
 - `01_SwinTransformer概述与四阶段结构.ipynb`：理解 Window Attention、Shifted Window、Patch Merging 和四阶段层级结构。

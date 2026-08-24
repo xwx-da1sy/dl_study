@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" role="img" aria-labelledby="title desc">
+  <title id="title">W-MSA 与 SW-MSA 的分组变化</title><desc id="desc">上半部分展示固定窗口内部交流，下半部分展示移动边界后 A4、B3、C2、D1 进入同一新窗口。</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#475569"/></marker><style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#0f172a}.t{font-size:24px;font-weight:700}.h{font-size:18px;font-weight:700}.s{font-size:14px;fill:#475569}.g{stroke:#64748b;stroke-width:1}.bold{stroke:#0f172a;stroke-width:5}.dash{stroke:#dc2626;stroke-width:4;stroke-dasharray:10 7;fill:none}.arr{stroke:#475569;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1100" height="560" fill="#f8fafc"/><text x="550" y="38" text-anchor="middle" class="t">W-MSA 先“屋内开会”，SW-MSA 再“重新分组”</text>
+  <g transform="translate(80 105)"><text x="140" y="-25" text-anchor="middle" class="h">① W-MSA：固定窗口</text>
+    <rect x="0" y="0" width="280" height="280" fill="#fff" stroke="#64748b"/>
+    <path d="M70 0V280M140 0V280M210 0V280M0 70H280M0 140H280M0 210H280" class="g"/><path d="M140 0V280M0 140H280" class="bold"/>
+    <g class="h" text-anchor="middle"><text x="35" y="43">A1</text><text x="105" y="43">A2</text><text x="175" y="43">B1</text><text x="245" y="43">B2</text><text x="35" y="113">A3</text><text x="105" y="113">A4</text><text x="175" y="113">B3</text><text x="245" y="113">B4</text><text x="35" y="183">C1</text><text x="105" y="183">C2</text><text x="175" y="183">D1</text><text x="245" y="183">D2</text><text x="35" y="253">C3</text><text x="105" y="253">C4</text><text x="175" y="253">D3</text><text x="245" y="253">D4</text></g>
+  </g>
+  <line class="arr" x1="405" y1="245" x2="520" y2="245"/><text x="462" y="218" text-anchor="middle" class="s">边界移动一格</text>
+  <g transform="translate(570 105)"><text x="140" y="-25" text-anchor="middle" class="h">② SW-MSA：新的窗口分组</text>
+    <rect x="0" y="0" width="280" height="280" fill="#fff" stroke="#64748b"/>
+    <path d="M70 0V280M140 0V280M210 0V280M0 70H280M0 140H280M0 210H280" class="g"/>
+    <rect x="70" y="70" width="140" height="140" fill="#fee2e2" opacity=".8"/><rect x="70" y="70" width="140" height="140" class="dash"/>
+    <g class="h" text-anchor="middle"><text x="35" y="43">A1</text><text x="105" y="43">A2</text><text x="175" y="43">B1</text><text x="245" y="43">B2</text><text x="35" y="113">A3</text><text x="105" y="113">A4</text><text x="175" y="113">B3</text><text x="245" y="113">B4</text><text x="35" y="183">C1</text><text x="105" y="183">C2</text><text x="175" y="183">D1</text><text x="245" y="183">D2</text><text x="35" y="253">C3</text><text x="105" y="253">C4</text><text x="175" y="253">D3</text><text x="245" y="253">D4</text></g>
+  </g>
+  <g transform="translate(885 145)"><rect x="0" y="0" width="170" height="200" rx="12" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><text x="85" y="35" text-anchor="middle" class="h">新窗口包含</text><text x="85" y="78" text-anchor="middle" class="h">A4　B3</text><text x="85" y="115" text-anchor="middle" class="h">C2　D1</text><text x="85" y="158" text-anchor="middle" class="s">来自原来的</text><text x="85" y="181" text-anchor="middle" class="s">A / B / C / D</text></g>
+  <rect x="180" y="440" width="740" height="74" rx="14" fill="#e0f2fe" stroke="#0284c7"/><text x="550" y="472" text-anchor="middle" class="h">W-MSA：各窗口先汇总内部信息</text><text x="550" y="497" text-anchor="middle" class="h">SW-MSA：重新分组后，把信息传到相邻窗口</text>
+</svg>
