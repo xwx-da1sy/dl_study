@@ -14,6 +14,7 @@ from .config import (
     MIXUP_ALPHA,
     NUM_CLASSES,
     NUM_WORKERS,
+    RANDOM_ERASING_PROBABILITY,
     RANDOM_SEED,
     VALIDATION_SIZE,
 )
@@ -150,7 +151,7 @@ def create_cifar100_dataloaders(
             transforms.ToTensor(),
             transforms.Normalize(CIFAR100_MEAN, CIFAR100_STD),
             transforms.RandomErasing(
-                p=0.25,
+                p=RANDOM_ERASING_PROBABILITY,
                 scale=(0.02, 0.20),
                 ratio=(0.3, 3.3),
                 value=0,

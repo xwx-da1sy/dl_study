@@ -10,10 +10,10 @@ DATA_ROOT = PROJECT_ROOT / "data"
 
 # 模型训练后使用的目录先集中定义，后续文件不要各自拼接路径。
 CHECKPOINT_DIR = PROJECT_ROOT / "checkpoints"
-BEST_MODEL_PATH = CHECKPOINT_DIR / "custom_swin_best.pt"
+BEST_MODEL_PATH = CHECKPOINT_DIR / "custom_swin_optimized_best.pt"
 
 RESULTS_DIR = PROJECT_ROOT / "results"
-TRAINING_HISTORY_PATH = RESULTS_DIR / "training_history.json"
+TRAINING_HISTORY_PATH = RESULTS_DIR / "optimized_training_history.json"
 EVALUATION_SUMMARY_PATH = RESULTS_DIR / "evaluation_summary.json"
 
 # CIFAR-100 官方训练集有50,000张图片。
@@ -44,19 +44,28 @@ STAGE_DIMS = (96, 192, 384)
 STAGE_USE_SHIFTED_WINDOWS = (True, True, False)
 
 MLP_RATIO = 4.0
-DROPOUT_RATE = 0.1
+# Mixup、CutMix 和 DropPath 已经提供了较强正则化，因此不再叠加普通 Dropout。
+DROPOUT_RATE = 0.0
 ATTENTION_DROPOUT_RATE = 0.0
 STOCHASTIC_DEPTH_RATE = 0.1
+
+# Random Erasing 保留较轻强度，避免和 RandAugment、Mixup/CutMix 叠加过强。
+RANDOM_ERASING_PROBABILITY = 0.1
 
 # 训练参数集中存放；优化器在 optimization.py 中创建。
 LEARNING_RATE = 3e-4
 WEIGHT_DECAY = 0.05
 ADAMW_BETAS = (0.9, 0.999)
 ADAMW_EPS = 1e-8
-NUM_EPOCHS = 200
-WARMUP_EPOCHS = 10
+NUM_EPOCHS = 300
+WARMUP_EPOCHS = 15
 MIN_LEARNING_RATE = 1e-6
-LABEL_SMOOTHING = 0.1
+LABEL_SMOOTHING = 0.05
+
+# 网格搜索先用较短训练比较组合，确定参数后再完整训练300轮。
+SEARCH_EPOCHS = 100
+LEARNING_RATE_CANDIDATES = (2e-4, 3e-4, 5e-4)
+WEIGHT_DECAY_CANDIDATES = (0.02, 0.05)
 
 # Mixup 混合整张图片，CutMix 只交换矩形区域。
 # 两者都开启时，每个训练 batch 以50%的概率选择 CutMix，否则选择 Mixup。
