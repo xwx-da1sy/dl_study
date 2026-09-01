@@ -48,12 +48,21 @@ DROPOUT_RATE = 0.1
 ATTENTION_DROPOUT_RATE = 0.0
 STOCHASTIC_DEPTH_RATE = 0.1
 
-# 训练参数先集中存放；真正创建损失函数、优化器和调度器属于后续训练阶段。
+# 训练参数集中存放；优化器在 optimization.py 中创建。
 LEARNING_RATE = 3e-4
 WEIGHT_DECAY = 0.05
+ADAMW_BETAS = (0.9, 0.999)
+ADAMW_EPS = 1e-8
 NUM_EPOCHS = 200
 WARMUP_EPOCHS = 10
 MIN_LEARNING_RATE = 1e-6
 LABEL_SMOOTHING = 0.1
+
+# Mixup 混合整张图片，CutMix 只交换矩形区域。
+# 两者都开启时，每个训练 batch 以50%的概率选择 CutMix，否则选择 Mixup。
+MIXUP_ALPHA = 0.1
+CUTMIX_ALPHA = 1.0
+CUTMIX_PROBABILITY = 0.5
+
 MAX_GRAD_NORM = 1.0
 LOG_INTERVAL = 50

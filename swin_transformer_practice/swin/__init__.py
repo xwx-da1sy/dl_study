@@ -1,10 +1,14 @@
-"""自定义 Swin 网络项目中，模型构建前可复用的配置和数据接口。"""
+"""自定义 Swin 项目统一对外提供的配置、数据、模型和优化器接口。"""
 
 from .config import (
+    ADAMW_BETAS,
+    ADAMW_EPS,
     ATTENTION_DROPOUT_RATE,
     BATCH_SIZE,
     BEST_MODEL_PATH,
     CHECKPOINT_DIR,
+    CUTMIX_ALPHA,
+    CUTMIX_PROBABILITY,
     DATA_ROOT,
     DROPOUT_RATE,
     EMBED_DIM,
@@ -16,6 +20,7 @@ from .config import (
     LOG_INTERVAL,
     MAX_GRAD_NORM,
     MIN_LEARNING_RATE,
+    MIXUP_ALPHA,
     MLP_RATIO,
     NUM_CLASSES,
     NUM_EPOCHS,
@@ -34,7 +39,11 @@ from .config import (
     WEIGHT_DECAY,
     WINDOW_SIZE,
 )
-from .data import create_cifar100_dataloaders
+from .data import (
+    apply_mixup_or_cutmix,
+    calculate_mixed_loss,
+    create_cifar100_dataloaders,
+)
 from .embedding import PatchEmbedding
 from .encoder import (
     DropPath,
@@ -47,15 +56,38 @@ from .encoder import (
     window_partition,
     window_reverse,
 )
+from .evaluation import (
+    collect_evaluation_results,
+    load_training_history,
+    plot_confusion_matrix,
+    plot_per_class_accuracy,
+    plot_prediction_samples,
+    plot_top_misclassifications,
+    plot_training_history,
+    save_evaluation_summary,
+)
 from .model import AttentionPooling, ClassificationHead, CustomSwin
+from .optimization import create_optimizer
+from .training import (
+    create_loss_function,
+    create_warmup_cosine_scheduler,
+    evaluate,
+    fit,
+    set_random_seed,
+    train_one_epoch,
+)
 
 
 __all__ = [
+    "ADAMW_BETAS",
+    "ADAMW_EPS",
     "ATTENTION_DROPOUT_RATE",
     "AttentionPooling",
     "BATCH_SIZE",
     "BEST_MODEL_PATH",
     "CHECKPOINT_DIR",
+    "CUTMIX_ALPHA",
+    "CUTMIX_PROBABILITY",
     "ClassificationHead",
     "CustomSwin",
     "DATA_ROOT",
@@ -70,6 +102,7 @@ __all__ = [
     "LOG_INTERVAL",
     "MAX_GRAD_NORM",
     "MIN_LEARNING_RATE",
+    "MIXUP_ALPHA",
     "MLP_RATIO",
     "MLP",
     "NUM_CLASSES",
@@ -93,8 +126,25 @@ __all__ = [
     "WEIGHT_DECAY",
     "WINDOW_SIZE",
     "WindowAttention",
+    "apply_mixup_or_cutmix",
+    "calculate_mixed_loss",
+    "collect_evaluation_results",
     "create_shifted_window_mask",
     "create_cifar100_dataloaders",
+    "create_loss_function",
+    "create_optimizer",
+    "create_warmup_cosine_scheduler",
+    "evaluate",
+    "fit",
+    "load_training_history",
+    "plot_confusion_matrix",
+    "plot_per_class_accuracy",
+    "plot_prediction_samples",
+    "plot_top_misclassifications",
+    "plot_training_history",
+    "save_evaluation_summary",
+    "set_random_seed",
+    "train_one_epoch",
     "window_partition",
     "window_reverse",
 ]
