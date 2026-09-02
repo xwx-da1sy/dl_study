@@ -22,6 +22,7 @@
 ## 当前笔记
 
 - `01_DETR概述与集合预测.ipynb`：从图像分类过渡到目标检测，理解 DETR 的整体结构、Object Queries、一对一集合预测和匈牙利匹配。
+- `02_DETR输入表示_Backbone与二维位置编码.ipynb`：跟踪图片、padding mask、CNN 特征图、1 x 1 通道投影、图像 tokens 和二维位置编码的完整 shape，明确 Encoder 的实际输入。
 
 ## 第一阶段目标
 
