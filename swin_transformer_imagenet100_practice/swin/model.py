@@ -51,7 +51,7 @@ class AttentionPooling(nn.Module):
 
 
 class ClassificationHead(nn.Module):
-    """把整图特征从768维映射为 ImageNet-1K 的1000个 logits。"""
+    """把整图特征从768维映射为 ImageNet-100 的100个 logits。"""
 
     def __init__(self, dim, num_classes=NUM_CLASSES):
         super().__init__()
@@ -67,7 +67,7 @@ class ClassificationHead(nn.Module):
 
 
 class CustomSwin(nn.Module):
-    """针对 224 x 224 ImageNet-1K 图片设计的四阶段 Swin 分类网络。"""
+    """针对 224 x 224 ImageNet-100 图片设计的四阶段 Swin 分类网络。"""
 
     def __init__(
         self,

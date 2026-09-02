@@ -1,4 +1,4 @@
-"""加载最佳 Swin，在 ImageNet-1K 官方验证集上评估并生成可视化结果。"""
+"""加载最佳 Swin，在 ImageNet-100 验证集上评估并生成可视化结果。"""
 
 import argparse
 from pathlib import Path
@@ -15,7 +15,7 @@ from swin import (
     TRAINING_HISTORY_PATH,
     CustomSwin,
     collect_evaluation_results,
-    create_imagenet1k_dataloaders,
+    create_imagenet100_dataloaders,
     load_training_history,
     plot_confusion_matrix,
     plot_per_class_accuracy,
@@ -28,7 +28,7 @@ from swin import (
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="评估并可视化 ImageNet-1K 四阶段自定义 Swin"
+        description="评估并可视化 ImageNet-100 四阶段自定义 Swin"
     )
     parser.add_argument("--checkpoint", type=Path, default=BEST_MODEL_PATH)
     parser.add_argument("--history", type=Path, default=TRAINING_HISTORY_PATH)
@@ -52,7 +52,7 @@ def main():
     if device.type == "cuda":
         torch.set_float32_matmul_precision("high")
 
-    _, _, official_validation_loader, class_names = create_imagenet1k_dataloaders(
+    _, _, official_validation_loader, class_names = create_imagenet100_dataloaders(
         batch_size=args.batch_size,
         num_workers=args.num_workers,
     )

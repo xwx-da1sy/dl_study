@@ -1,4 +1,4 @@
-"""把 ImageNet-1K 图片转换为保留二维网格的 Patch tokens。"""
+"""把 ImageNet-100 图片转换为保留二维网格的 Patch tokens。"""
 
 from torch import nn
 

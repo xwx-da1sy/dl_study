@@ -216,11 +216,11 @@ def plot_confusion_matrix(confusion_matrix, class_names, output_path):
         interpolation="nearest",
     )
     figure.colorbar(image, ax=axis, label="Percentage (%)")
-    axis.set_title("ImageNet-1K Normalized Confusion Matrix")
+    axis.set_title("ImageNet-100 Normalized Confusion Matrix")
     axis.set_xlabel("Predicted class")
     axis.set_ylabel("True class")
 
-    # 1000个完整类名会重叠，因此只等间隔显示少量坐标标签。
+    # 100个完整类名仍会重叠，因此只等间隔显示少量坐标标签。
     tick_step = max(1, len(class_names) // 10)
     tick_positions = list(range(0, len(class_names), tick_step))
     tick_labels = [class_names[index] for index in tick_positions]

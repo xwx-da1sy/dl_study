@@ -46,7 +46,7 @@ from .config import (
 from .data import (
     apply_mixup_or_cutmix,
     calculate_mixed_loss,
-    create_imagenet1k_dataloaders,
+    create_imagenet100_dataloaders,
 )
 from .embedding import PatchEmbedding
 from .encoder import (
@@ -138,7 +138,7 @@ __all__ = [
     "calculate_mixed_loss",
     "collect_evaluation_results",
     "create_shifted_window_mask",
-    "create_imagenet1k_dataloaders",
+    "create_imagenet100_dataloaders",
     "create_loss_function",
     "create_optimizer",
     "create_warmup_cosine_scheduler",

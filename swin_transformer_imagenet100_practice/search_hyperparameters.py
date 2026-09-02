@@ -22,7 +22,7 @@ from swin import (
     WARMUP_EPOCHS,
     WEIGHT_DECAY_CANDIDATES,
     CustomSwin,
-    create_imagenet1k_dataloaders,
+    create_imagenet100_dataloaders,
     create_loss_function,
     create_optimizer,
     create_warmup_cosine_scheduler,
@@ -117,7 +117,7 @@ def main():
     trials = []
 
     print(f"共{len(combinations)}组参数；每组训练{args.epochs}轮")
-    print("只比较从train划出的固定验证集，ImageNet官方val不会参与搜索")
+    print("只比较从train划出的固定验证集，ImageNet-100 val不会参与搜索")
 
     for trial_index, (learning_rate, weight_decay) in enumerate(
         combinations,
@@ -126,7 +126,7 @@ def main():
         # 每组都重置随机种子和 DataLoader，使比较尽量只受超参数影响。
         set_random_seed()
         train_loader, validation_loader, official_validation_loader, _ = (
-            create_imagenet1k_dataloaders(
+            create_imagenet100_dataloaders(
                 batch_size=args.batch_size,
                 num_workers=args.num_workers,
             )

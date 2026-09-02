@@ -1,4 +1,4 @@
-"""在 ImageNet-1K 上训练四阶段自定义 Swin。"""
+"""在 ImageNet-100 上训练四阶段自定义 Swin。"""
 
 import argparse
 from pathlib import Path
@@ -22,7 +22,7 @@ from swin import (
     WARMUP_EPOCHS,
     WEIGHT_DECAY,
     CustomSwin,
-    create_imagenet1k_dataloaders,
+    create_imagenet100_dataloaders,
     create_loss_function,
     create_optimizer,
     create_warmup_cosine_scheduler,
@@ -34,7 +34,7 @@ from swin import (
 def parse_args():
     """读取训练参数；网格搜索时可直接传入不同参数而不修改源码。"""
     parser = argparse.ArgumentParser(
-        description="在 ImageNet-1K 上训练四阶段自定义 Swin"
+        description="在 ImageNet-100 上训练四阶段自定义 Swin"
     )
     parser.add_argument("--epochs", type=int, default=NUM_EPOCHS)
     parser.add_argument("--batch-size", type=int, default=BATCH_SIZE)
@@ -92,7 +92,7 @@ def main():
         torch.set_float32_matmul_precision("high")
 
     train_loader, validation_loader, official_validation_loader, _ = (
-        create_imagenet1k_dataloaders(
+        create_imagenet100_dataloaders(
             batch_size=args.batch_size,
             num_workers=args.num_workers,
         )
@@ -125,7 +125,7 @@ def main():
         f"{len(validation_loader.dataset)}/"
         f"{len(official_validation_loader.dataset)}"
     )
-    print("ImageNet官方验证集不会参与训练或最佳模型选择")
+    print("ImageNet-100验证集不会参与训练或最佳模型选择")
     print(f"可训练参数：{trainable_parameters:,}")
     print(f"epochs：{args.epochs}，warmup：{args.warmup_epochs}")
     print(f"batch size：{args.batch_size}")

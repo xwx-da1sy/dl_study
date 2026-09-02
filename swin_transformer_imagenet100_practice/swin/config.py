@@ -1,9 +1,9 @@
-"""ImageNet-1K 四阶段自定义 Swin 网络的集中配置。"""
+"""ImageNet-100 四阶段自定义 Swin 网络的集中配置。"""
 
 from pathlib import Path
 
 
-# 当前文件位于 swin_transformer_imagenet1k_practice/swin/config.py，
+# 当前文件位于 swin_transformer_imagenet100_practice/swin/config.py，
 # parent.parent 因此指向整个 Swin 实践项目目录。
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_ROOT = PROJECT_ROOT / "data"
@@ -16,18 +16,18 @@ RESULTS_DIR = PROJECT_ROOT / "results"
 TRAINING_HISTORY_PATH = RESULTS_DIR / "optimized_training_history.json"
 EVALUATION_SUMMARY_PATH = RESULTS_DIR / "evaluation_summary.json"
 
-# 从 ImageNet-1K 官方 train 中每类固定取50张作为内部验证集。
+# 从 ImageNet-100 的 train 中每类固定取50张作为内部验证集。
 # 官方 val 不参与模型选择，只留给最终评估。
-VALIDATION_SIZE = 50_000
+VALIDATION_SIZE = 5_000
 
 BATCH_SIZE = 128
 NUM_WORKERS = 4
 RANDOM_SEED = 42
 
-# ImageNet-1K 输入配置。
+# ImageNet-100 输入配置。
 IMAGE_SIZE = 224
 IN_CHANNELS = 3
-NUM_CLASSES = 1_000
+NUM_CLASSES = 100
 
 # 自定义 Swin 的结构配置；网络层在 embedding.py、encoder.py 和 model.py 中创建。
 # patch_size=4 会把 224 x 224 图片变成 56 x 56 个 patch tokens。

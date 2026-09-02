@@ -1,4 +1,4 @@
-"""ImageNet-1K 数据集、数据增强、Mixup/CutMix 和 DataLoader。"""
+"""ImageNet-100 数据集、数据增强、Mixup/CutMix 和 DataLoader。"""
 
 import math
 from pathlib import Path
@@ -120,7 +120,7 @@ def calculate_mixed_loss(
     )
 
 
-def create_imagenet1k_dataloaders(
+def create_imagenet100_dataloaders(
     data_root=DATA_ROOT,
     batch_size=BATCH_SIZE,
     validation_size=VALIDATION_SIZE,
@@ -128,7 +128,7 @@ def create_imagenet1k_dataloaders(
     random_seed=RANDOM_SEED,
 ):
     """
-    读取 ImageNet-1K，并创建训练、内部验证和官方验证 DataLoader。
+    读取 ImageNet-100，并创建训练、内部验证和官方验证 DataLoader。
 
     data_root 下必须存在：
         train/<类别目录>/<图片>
@@ -138,7 +138,7 @@ def create_imagenet1k_dataloaders(
         train_loader：官方 train 扣除内部验证后的训练集。
         validation_loader：从官方 train 按类别均衡划出的内部验证集。
         official_validation_loader：官方 val，只在最终模型确定后使用。
-        class_names：1000个类别目录名称。
+        class_names：100个类别目录名称。
     """
     data_root = Path(data_root)
     train_directory = data_root / "train"
@@ -156,7 +156,7 @@ def create_imagenet1k_dataloaders(
             ]
         )
         raise FileNotFoundError(
-            "没有找到完整的 ImageNet-1K 目录。期望结构：\n" + expected
+            "没有找到完整的 ImageNet-100 目录。期望结构：\n" + expected
         )
 
     train_transform = transforms.Compose(
