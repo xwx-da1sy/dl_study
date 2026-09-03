@@ -12,6 +12,7 @@
 - `vision_transformer_practice/`：Vision Transformer 实践（预训练推理、Patch Embedding、Tiny ViT、可视化与 CNN 对照）。
 - `swin_transformer_basic_knowledge/`：Swin Transformer 基础（Window Attention、Shifted Window、Patch Merging 与层级结构）。
 - `swin_transformer_practice/`：Swin Transformer 实践（预训练推理、四阶段 shape 跟踪与后续微调）。
+- `object_detection_basic_knowledge/`：目标检测共同基础（边界框、IoU、目标分配、NMS、mAP 与 YOLO 基本范式）。
 - `detr_basic_knowledge/`：DETR 基础（目标检测、Object Queries、集合预测、二分图匹配与检测损失）。
 
 ## 学习日志
@@ -347,4 +348,4 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：正式进入 DETR，正在拆解 CNN Backbone、图像 token 序列与二维位置编码。
+- 当前阶段：正在补齐目标检测共同基础，已学习 IoU，并进入分类头、边界框回归头与检测损失的共同结构。

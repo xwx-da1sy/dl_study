@@ -2,6 +2,8 @@
 
 本目录承接已经完成的 CNN、Attention、Transformer、ViT 与 Swin Transformer 学习，开始进入目标检测与 DETR。
 
+> 学习顺序调整：先完成 `object_detection_basic_knowledge/`，建立边界框、IoU、目标分配、NMS、检测指标和 YOLO 基本范式，再回到本目录。当前两篇 DETR 笔记保留为后续内容，不再作为目标检测的起点。
+
 这一阶段先理解目标检测任务和 DETR 的核心思想，再逐步拆解 Backbone、位置编码、Encoder、Decoder、Object Queries、集合预测损失与推理流程。不会一开始就堆训练代码。
 
 ## 学习主线
