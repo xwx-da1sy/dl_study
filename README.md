@@ -9,9 +9,11 @@
 - `neural_network_basic_knowledge/`：神经网络基础概念（激活函数、MLP、优化器、归一化、MNIST 实战等）。
 - `cnn_basic_knowledge/`：CNN 卷积神经网络（图像基础、卷积层、池化层、网络结构、LeNet 等）。
 - `attention_basic_knowledge/`：Attention 注意力机制（动态加权、QKV、Self-Attention、Multi-Head Attention、Transformer 等）。
-- `vision_transformer_practice/`：Vision Transformer 实践（预训练推理、Patch Embedding、Tiny ViT、可视化与 CNN 对照）。
+- `nlp_embedding_basic_knowledge/`：NLP Embedding 基础（Tokenization、词表与 Token ID、One-hot 与 Embedding 矩阵），补足文本进入 Transformer 前的表示环节。
+- `vision_transformer_practice/`：Vision Transformer 实践（预训练推理、Patch Embedding、Tiny ViT、ViT 论文转译、可视化、CNN 公平对照与 224×224 放大训练）。
 - `swin_transformer_basic_knowledge/`：Swin Transformer 基础（Window Attention、Shifted Window、Patch Merging 与层级结构）。
-- `swin_transformer_practice/`：Swin Transformer 实践（预训练推理、四阶段 shape 跟踪与后续微调）。
+- `swin_transformer_practice/`：Swin Transformer 实践（预训练推理与 shape 对齐、CIFAR-100 自定义 Swin、超参数搜索与训练评估）。
+- `swin_transformer_imagenet100_practice/`：在 ImageNet-100 上训练四阶段自定义 Swin（含超参数搜索、训练与评估）。
 - `object_detection_basic_knowledge/`：目标检测共同基础（边界框、IoU、目标分配、NMS、mAP 与 YOLO 基本范式）。
 - `detr_basic_knowledge/`：DETR 基础（目标检测、Object Queries、集合预测、二分图匹配与检测损失）。
 
@@ -322,6 +324,94 @@
   - 两者复用相同 CIFAR-10 划分、增强、AdamW、交叉熵、Mixup、Warmup、余弦退火与 Early Stopping。
   - CNN 使用独立训练与评估入口，避免覆盖 TinyViT 的 checkpoint 和结果。
 
+### 2026-08-16
+
+- 在 `vision_transformer_practice/04_TinyViT_EncoderBlock结构拆解.ipynb` 中补充纸上推导练习参考答案：不运行代码，从 shape 出发手推 EncoderBlock 中 MHA 的 Q/K/V、注意力矩阵、残差连接与 FFN 的信息流与参数量，加深对模型内部机制的理解。
+
+### 2026-08-17
+
+- 优化器进阶补充 AdamW：
+  - `neural_network_basic_knowledge/02_mlp_training_theory/03_optimizers_and_lr/06-01_优化器进阶_RMSProp与Adam再理解.ipynb`
+  - 理解 AdamW 与 Adam 的核心区别：把权重衰减从自适应梯度中解耦（先做 Adam 更新、再独立衰减权重）。
+  - 理解 bias 与 LayerNorm 的缩放/偏移参数通常不参与权重衰减，以及 Transformer / ViT 常用 AdamW 的原因。
+- 工程化 Tiny ViT 的 CIFAR-10 训练代码：
+  - 新增模型与组件 `vision_transformer_practice/vit/`：`config.py`、`data.py`、`embedding.py`、`encoder.py`、`model.py`、`training.py`、`evaluation.py` 等。
+  - 新增入口脚本 `vit/train_tiny_vit.py`、`vit/evaluate_tiny_vit.py`、`vit/infer.py`，支持完整训练、可视化评估与单图预测。
+  - 将训练轮数从 100 提升至 500，配合 AdamW 与余弦退火等策略提高训练充分性。
+  - 新增训练曲线读图指南：`vision_transformer_practice/05_训练曲线读图指南.ipynb`，配套分析 ViT 训练效果并总结。
+  - 新增 `.gitignore`，排除大文件、训练 checkpoints、结果与虚拟环境等。
+
+### 2026-08-18
+
+- 将 Mixup 数据增强应用到 TinyViT 训练中，防止过拟合；同步更新 `05_训练曲线读图指南.ipynb` 分析对应训练效果。
+- 新增柱状图脚本 `vision_transformer_practice/vit/plot_performance_evaluation.py`：展示错误 top10、每个标签正确率与常见错误。
+
+### 2026-08-19
+
+- 完成正则化与数据增强主题 notebook：
+  - `vision_transformer_practice/06_正则化技术_EarlyStopping与LabelSmoothing.ipynb` — Early Stopping 与 Label Smoothing 的原理、实现及配合使用方法。
+  - `vision_transformer_practice/07_数据增强原理与实践.ipynb` — 四大类增强方法及其在项目中的应用，并补充实践观察与小结。
+- 新增 224×224 ViT 放大训练项目：
+  - `vision_transformer_practice/vit_224/`：`config.py`、`data.py`、`embedding.py`、`encoder.py`、`model.py`、`training.py`、`evaluation.py` 与 `train_vit224.py` / `evaluate_vit224.py`。
+  - 在 CIFAR-10 上进行放大分辨率训练，结果单独存放于 `results_224/` 与 `checkpoints_224/`。
+- 阅读并转译 ViT 论文，整理背景调研：
+  - `vision_transformer_practice/ViT论文转译/`：`overview.md`、`background.md`、`translation.md`、`notes.md` 与 `citations.md`。
+  - 分析 ViT 的核心贡献与创新点，整理相关引用与术语速查。
+
+### 2026-08-21
+
+- 实现 CNN 公平对照模型：
+  - `vision_transformer_practice/cnn_baseline/`：`config.py`、`model.py`。
+  - `vision_transformer_practice/compare_cnn/`：`train_cnn_baseline.py`、`evaluate_cnn_baseline.py`。
+  - 复用与 TinyViT 相同的训练流程（优化器、数据增强、调度等），checkpoint 与结果独立存放，确保模型间公平对比。
+- 开始 Swin Transformer 基础学习，创建 `swin_transformer_basic_knowledge/`：
+  - `01_SwinTransformer概述与四阶段结构.ipynb` — 理解 Window Attention、Shifted Window、Patch Merging 与四阶段层级结构。
+  - `02_WindowAttention窗口划分与QKV形状.ipynb` — 跟踪窗口划分、QKV、多头注意力与窗口还原的完整 shape。
+
+### 2026-08-24
+
+- 完善 Swin Transformer 基础笔记，补完核心理论：
+  - `03_ShiftedWindow移动窗口与AttentionMask.ipynb` — W-MSA 与 SW-MSA、循环移位、Attention Mask 与跨窗口信息传播。
+  - `04_相对位置偏置_RelativePositionBias.ipynb` — 相对位移、偏置表、索引矩阵及其与 Attention logits 的结合。
+  - `05_PatchMerging层级下采样.ipynb` — 2×2 token 合并、通道压缩与层级下采样。
+  - `06_SwinBlock完整结构.ipynb` — LayerNorm、残差连接、MLP 与 W-MSA/SW-MSA Block 的完整组成。
+  - `07_SwinTransformer完整结构与复盘.ipynb` — 串联四个 Stage 与分类头，并与 CNN/ViT 对比。
+  - 新增 `images/` 示意图，重构各阶段结构与 Patch Merging 过程的讲解。
+- 新增 NLP Embedding 基础，创建 `nlp_embedding_basic_knowledge/`：
+  - `01_Tokenization文本如何切成Token.ipynb`
+  - `02_词表与Token_ID.ipynb`
+  - `03_One-hot与Embedding矩阵.ipynb`
+  - 理解文本如何切分成 token、token 如何映射为整数 ID、整数 ID 如何通过 Embedding 矩阵变成向量。
+- 整理 `vision_transformer_practice` 代码结构：重命名脚本并更新导入路径，将训练/评估相关代码包化进 `vit/`、`vit_224/` 等模块。
+
+### 2026-09-01
+
+- 创建 `swin_transformer_practice/`，进入 Swin Transformer 的 CIFAR-100 实践：
+  - `01_pretrained_swin_t_inference_and_shape_trace.py` — 运行 torchvision 预训练 Swin-T，并把真实输出与理论 shape 对齐。
+  - 重构 CIFAR-100 数据加载与模型配置：新增 `swin/` 包（`config.py`、`data.py`、`embedding.py`、`encoder.py`、`model.py`、`optimization.py`、`training.py`、`evaluation.py`），集中管理路径与参数。
+  - 在 `swin/data.py` 中实现 Mixup 与 CutMix 混合数据增强，更新配置以支持新参数。
+  - 新增超参数搜索 `search_hyperparameters.py`：搜索学习率与 Weight Decay，调整训练轮数与标签平滑度，新增随机擦除概率；官方测试集不参与选择。
+  - 新增 `train_custom_swin.py` 与 `evaluate_custom_swin.py`：使用最佳参数完整训练后在官方测试集上最终评估一次。
+
+### 2026-09-02
+
+- 将 Swin 实践扩展到 ImageNet：
+  - 先以 ImageNet-1K 为目标改写为四阶段网络结构并调整架构以提升训练效果。
+  - 因数据规模较大，随后重构为 ImageNet-100 支持，迁移为 `swin_transformer_imagenet100_practice/`。
+  - 数据按 ImageFolder 组织（train/val 各 100 类），从 train 每类固定划出 50 张作为内部验证集，val 仅供最终评估。
+- 进入 DETR 基础学习，创建 `detr_basic_knowledge/`：
+  - `01_DETR概述与集合预测.ipynb` — 目标检测基本概念、DETR 整体结构、Object Queries、一对一集合预测与匈牙利匹配。
+  - `02_DETR输入表示_Backbone与二维位置编码.ipynb` — 图片、padding mask、CNN 特征图、1×1 通道投影、图像 tokens 与二维位置编码的完整 shape。
+
+### 2026-09-03
+
+- 创建 `object_detection_basic_knowledge/`，先补齐目标检测共同基础：
+  - `01_目标检测是什么_从分类到定位.ipynb`
+  - `02_IoU边界框重叠度.ipynb`
+  - `03_分类与边界框回归.ipynb`
+  - 建立"图像分类→定位→目标检测、边界框与坐标表示、IoU、分类头与边界框回归头"的检测主线。
+- 调整学习顺序：`detr_basic_knowledge/` 的 DETR 笔记保留为后续内容，先完成目标检测共同基础再回到 DETR。
+
 ## 当前阶段目标
 
 - 能熟练理解 Tensor 的 shape、dtype、device。
@@ -348,4 +438,7 @@
 - 能说明 Attention 反向传播时梯度经过 V、Softmax、Q、K 和投影矩阵的基本路径。
 - 能解释 ViT 如何使用 Conv2d 将 RGB 图像转换为 patch tokens，并计算 Patch Embedding 参数量。
 - 能解释 CLS token、可学习位置编码和位置编码插值在 ViT 中的作用。
-- 当前阶段：正在补齐目标检测共同基础，已学习 IoU，并进入分类头、边界框回归头与检测损失的共同结构。
+- 能区分图像分类、单目标定位与目标检测，理解边界框坐标格式与归一化。
+- 能从交集与并集出发计算两个 `xyxy` 框的 IoU，理解其取值范围、阈值与局限。
+- 能解释一条检测结果为什么同时包含离散类别与连续坐标，以及分类头与边界框回归头的损失如何共同反向传播。
+- 当前阶段：已完成目标检测共同基础的前三课（从分类到定位、IoU、分类与边界框回归），下一步进入正/负样本与目标分配、NMS、mAP 等检测流程环节，之后回到 DETR 的集合预测。
