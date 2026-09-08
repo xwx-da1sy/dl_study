@@ -35,14 +35,14 @@
 - `04_正样本负样本与目标分配.ipynb`：通过 2 个真实目标与 6 个候选预测的 IoU 对照表，理解正样本、负样本、忽略样本、一对多分配和一对一分配。
 - `05_重复预测与NMS.ipynb`：从一对多监督产生重复框讲起，用两只狗和一只猫的例子逐轮执行分数筛选与按类别 NMS。
 - `06_TP_FP_FN与Precision_Recall.ipynb`：通过 3 个真实目标和 5 条预测逐条判定 TP、FP、FN，理解 Precision、Recall、重复检测、漏检和分数阈值的影响。
+- `07_PR曲线_AP与mAP.ipynb`：承接同一组 TP、FP 序列，理解分数阈值扫描、PR 曲线、插值面积、AP50、AP75 与 COCO 风格 mAP。
 
 ## 当前阶段边界
 
-当前第六课只回答“怎样把检测结果统计成 TP、FP、FN、Precision 和 Recall”。
+当前第七课只回答“怎样用整条 PR 曲线汇总检测性能，以及 AP 和 mAP 中的平均是什么”。
 
 暂时不学习：
 
-- PR 曲线、AP 与 mAP。
 - YOLO 网络结构。
 - 具体 YOLO 或 Anchor 目标分配规则。
 - DETR Object Queries 与匈牙利匹配。
