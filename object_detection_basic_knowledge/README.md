@@ -24,6 +24,7 @@
 -> Precision、Recall、AP 与 mAP
 -> 用简化 YOLO 串起完整检测流程
 -> YOLO 的 Backbone、Neck 与 Detection Head
+-> YOLOv1 的网格与预测张量
 -> 传统检测器的复杂性
 -> 回到 DETR：集合预测怎样重写流程
 ```
@@ -39,10 +40,11 @@
 - `07_PR曲线_AP与mAP.ipynb`：承接同一组 TP、FP 序列，理解分数阈值扫描、PR 曲线、插值面积、AP50、AP75 与 COCO 风格 mAP。
 - `08_简化YOLO完整检测流程.ipynb`：跟踪一张含狗和猫的图片，串起特征图、预测单位、预测头、目标分配、三类损失、分数筛选、NMS 与 mAP。
 - `09_YOLO整体结构_Backbone_Neck_Head.ipynb`：正式理解一阶段检测，以及 Backbone 提取特征、Neck 融合多尺度信息、Detection Head 产生检测输出的分工。
+- `10_YOLOv1预测张量.ipynb`：沿“薛什么的B站”课程顺序学习 YOLOv1 网格责任、每格候选框与共享类别概率，拆解 $S\times S\times(5B+C)$ 和 $7\times7\times30$。
 
 ## 当前阶段边界
 
-当前第九课只回答“YOLO 的 Backbone、Neck 和 Detection Head 为什么存在，以及它们怎样前后连接”。
+当前第十课只回答“YOLOv1 的预测张量如何组织，以及每个网格位置究竟输出什么”。
 
 暂时不学习：
 
