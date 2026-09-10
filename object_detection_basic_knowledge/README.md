@@ -23,6 +23,7 @@
 -> NMS 如何删除重复框
 -> Precision、Recall、AP 与 mAP
 -> 用简化 YOLO 串起完整检测流程
+-> YOLO 的 Backbone、Neck 与 Detection Head
 -> 传统检测器的复杂性
 -> 回到 DETR：集合预测怎样重写流程
 ```
@@ -37,10 +38,11 @@
 - `06_TP_FP_FN与Precision_Recall.ipynb`：通过 3 个真实目标和 5 条预测逐条判定 TP、FP、FN，理解 Precision、Recall、重复检测、漏检和分数阈值的影响。
 - `07_PR曲线_AP与mAP.ipynb`：承接同一组 TP、FP 序列，理解分数阈值扫描、PR 曲线、插值面积、AP50、AP75 与 COCO 风格 mAP。
 - `08_简化YOLO完整检测流程.ipynb`：跟踪一张含狗和猫的图片，串起特征图、预测单位、预测头、目标分配、三类损失、分数筛选、NMS 与 mAP。
+- `09_YOLO整体结构_Backbone_Neck_Head.ipynb`：正式理解一阶段检测，以及 Backbone 提取特征、Neck 融合多尺度信息、Detection Head 产生检测输出的分工。
 
 ## 当前阶段边界
 
-当前第八课只回答“简化 YOLO 怎样把目标检测的训练、推理和评价连成完整流程”。
+当前第九课只回答“YOLO 的 Backbone、Neck 和 Detection Head 为什么存在，以及它们怎样前后连接”。
 
 暂时不学习：
 
