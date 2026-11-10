@@ -15,6 +15,7 @@
 - `swin_transformer_practice/`：Swin Transformer 实践（预训练推理与 shape 对齐、CIFAR-100 自定义 Swin、超参数搜索与训练评估）。
 - `swin_transformer_imagenet100_practice/`：在 ImageNet-100 上训练四阶段自定义 Swin（含超参数搜索、训练与评估）。
 - `object_detection_basic_knowledge/`：目标检测共同基础（边界框、IoU、目标分配、NMS、mAP 与 YOLO 基本范式）。
+- `yolo_mask_finetuning/`：结合口罩检测项目学习 YOLO 微调，从真实标注、数据准备到训练与评估。
 - `detr_basic_knowledge/`：DETR 基础（目标检测、Object Queries、集合预测、二分图匹配与检测损失）。
 
 ## 学习日志
