@@ -1,0 +1,130 @@
+"""Compare CNN, CBAM and a sequential channel/spatial self-attention variant."""
+import argparse
+import copy
+import json
+import math
+import time
+from pathlib import Path
+
+import numpy as np
+import torch
+from torch import nn
+from torch.nn import functional as F
+from torch.utils.data import DataLoader, Subset
+from torchvision import datasets, transforms
+from compare_cbam import DATA, Net, evaluate, seed_all
+
+ROOT = Path(__file__).resolve().parent
+
+class SequentialSelfAttention(nn.Module):
+    """Channel tokens first, then spatial tokens. Both use Q/K/V self-attention."""
+    def __init__(self, channels, size, channel_dim=16):
+        super().__init__()
+        positions = size * size
+        self.channel_qkv = nn.Linear(positions, 3 * channel_dim)
+        self.channel_out = nn.Linear(channel_dim, positions)
+        self.spatial_qkv = nn.Linear(channels, 3 * channels)
+        self.spatial_out = nn.Linear(channels, channels)
+        self.channel_scale = nn.Parameter(torch.tensor(0.1))
+        self.spatial_scale = nn.Parameter(torch.tensor(0.1))
+
+    def forward(self, x):
+        b, c, h, w = x.shape
+        # C tokens, each token encodes the full H*W spatial map.
+        channel_tokens = x.reshape(b, c, h * w)
+        q, k, v = self.channel_qkv(channel_tokens).chunk(3, dim=-1)
+        mixed = F.scaled_dot_product_attention(q.unsqueeze(1), k.unsqueeze(1), v.unsqueeze(1)).squeeze(1)
+        x = x + self.channel_scale * self.channel_out(mixed).reshape(b, c, h, w)
+        # H*W tokens, each token is a C-dimensional feature at one location.
+        spatial_tokens = x.flatten(2).transpose(1, 2)
+        q, k, v = self.spatial_qkv(spatial_tokens).chunk(3, dim=-1)
+        mixed = F.scaled_dot_product_attention(q.unsqueeze(1), k.unsqueeze(1), v.unsqueeze(1)).squeeze(1)
+        mixed = self.spatial_out(mixed).transpose(1, 2).reshape(b, c, h, w)
+        return x + self.spatial_scale * mixed
+
+
+def make_model(kind, seed):
+    seed_all(seed)
+    # The common convolution and classifier parameters are initialized identically.
+    model = Net(False)
+    if kind == 'cbam':
+        from compare_cbam import CBAM
+        model.attention = nn.ModuleList([CBAM(c) for c in (32, 64, 128)])
+    elif kind == 'self_attention':
+        model.attention = nn.ModuleList([SequentialSelfAttention(c, s) for c, s in zip((32, 64, 128), (16, 8, 4))])
+    return model
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--epochs', type=int, default=5)
+    ap.add_argument('--batch-size', type=int, default=128)
+    ap.add_argument('--seed', type=int, default=42)
+    args = ap.parse_args()
+    if not torch.cuda.is_available(): raise RuntimeError('CUDA GPU required')
+    device = torch.device('cuda')
+    norm = transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2470, 0.2435, 0.2616))
+    augment = transforms.Compose([transforms.RandomCrop(32, padding=4), transforms.RandomHorizontalFlip(), transforms.ToTensor(), norm])
+    plain = transforms.Compose([transforms.ToTensor(), norm])
+    train = datasets.CIFAR10(DATA, train=True, download=False, transform=augment)
+    val = datasets.CIFAR10(DATA, train=True, download=False, transform=plain)
+    test = datasets.CIFAR10(DATA, train=False, download=False, transform=plain)
+    rng = np.random.default_rng(args.seed); labels = np.asarray(train.targets)
+    train_indices, val_indices = [], []
+    for cls in range(10):
+        idx = rng.permutation(np.flatnonzero(labels == cls))
+        val_indices.extend(idx[:500]); train_indices.extend(idx[500:])
+    val_loader = DataLoader(Subset(val, val_indices), batch_size=256, shuffle=False)
+    test_loader = DataLoader(test, batch_size=256, shuffle=False)
+    outdir = ROOT / 'self_attention_results'
+    outdir.mkdir(exist_ok=True)
+    results = {'config': {'seed':args.seed, 'epochs':args.epochs, 'batch_size':args.batch_size,
+        'train':len(train_indices), 'validation':len(val_indices), 'test':len(test),
+        'optimizer':'Adam', 'learning_rate':0.001, 'gpu':torch.cuda.get_device_name(0),
+        'torch':torch.__version__, 'spatial_self_attention':'global, single-head',
+        'channel_self_attention':'single-head, 16-dimensional Q/K/V', 'dtype':'float32'}}
+    initial_models = [make_model(kind, args.seed) for kind in ('baseline','cbam','self_attention')]
+    for model in initial_models[1:]:
+        assert all(torch.equal(a,b) for a,b in zip(initial_models[0].blocks.state_dict().values(),model.blocks.state_dict().values()))
+        assert all(torch.equal(a,b) for a,b in zip(initial_models[0].head.state_dict().values(),model.head.state_dict().values()))
+    del initial_models
+    for kind in ('baseline','cbam','self_attention'):
+        torch.cuda.empty_cache()
+        model = make_model(kind,args.seed).to(device)
+        optimizer = torch.optim.Adam(model.parameters(),lr=0.001)
+        torch.cuda.reset_peak_memory_stats(device)
+        history=[]; best_val=-1; best=None; grads=None
+        for epoch in range(1,args.epochs+1):
+            seed_all(args.seed+epoch)
+            loader=DataLoader(Subset(train,train_indices),batch_size=args.batch_size,shuffle=True,num_workers=0)
+            torch.cuda.synchronize(); start=time.perf_counter()
+            model.train(); total=correct=count=0
+            for x,y in loader:
+                x,y=x.to(device),y.to(device)
+                optimizer.zero_grad(set_to_none=True)
+                logits=model(x); loss=F.cross_entropy(logits,y); loss.backward()
+                if kind=='self_attention' and grads is None:
+                    layer=model.attention[0]
+                    grads={'channel_qkv':layer.channel_qkv.weight.grad.norm().item(),
+                           'spatial_qkv':layer.spatial_qkv.weight.grad.norm().item()}
+                optimizer.step()
+                total+=loss.item()*y.size(0); correct+=(logits.argmax(1)==y).sum().item(); count+=y.size(0)
+            validation=evaluate(model,val_loader,device)
+            torch.cuda.synchronize(); elapsed=time.perf_counter()-start
+            record={'epoch':epoch,'train_loss':total/count,'train_accuracy':correct/count,
+                    'val_loss':validation['loss'],'val_accuracy':validation['accuracy'],'seconds':elapsed}
+            history.append(record); print(kind,json.dumps(record),flush=True)
+            if validation['accuracy']>best_val:
+                best_val=validation['accuracy']; best=copy.deepcopy(model.state_dict()); best_epoch=epoch
+        peak=torch.cuda.max_memory_allocated(device)
+        model.load_state_dict(best); test_result=evaluate(model,test_loader,device)
+        torch.save(best,outdir/(kind+'_best.pt'))
+        results[kind]={'parameters':sum(p.numel() for p in model.parameters()),'best_epoch':best_epoch,
+            'history':history,'test':test_result,'peak_allocated_mib_training_and_validation':peak/1024**2,
+            'first_batch_gradient_norms':grads}
+        (outdir/'results.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf8')
+        print(kind,'test',json.dumps(test_result),'peak MiB',peak/1024**2,flush=True)
+        del model,optimizer,best
+    print('Finished',outdir/'results.json',flush=True)
+
+if __name__=='__main__': main()

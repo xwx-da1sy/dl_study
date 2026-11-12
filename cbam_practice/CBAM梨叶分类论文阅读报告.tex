@@ -1,0 +1,49 @@
+\documentclass[UTF8,11pt,fontset=windows]{ctexart}
+\usepackage[letterpaper,top=2.25cm,bottom=2.3cm,left=2.9cm,right=2.9cm]{geometry}
+\usepackage{array,booktabs,enumitem,hyperref}
+\hypersetup{colorlinks=true,urlcolor=black}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.15}
+\setlist[enumerate]{label=(\arabic*),leftmargin=2.4em,itemsep=2pt,topsep=2pt,parsep=0pt}
+\ctexset{section={format=\heiti\zihao{-4},beforeskip=9pt,afterskip=5pt,numbering=false}}
+\pagestyle{plain}
+\begin{document}
+\begin{center}{\heiti\zihao{3} CBAM 梨叶症状分类论文阅读进展报告}\end{center}
+
+\section{1.1 本周目标}
+阅读 CBAM 在植物叶片症状分类中的应用论文，理解作者引入 CBAM 的原因、模型结构与对照实验，学习如何分析实验结果及其局限。
+
+\section{1.2 已完成的工作}
+\begin{enumerate}
+\item 了解研究问题。田间梨叶图片受背景、光照和拍摄角度影响，不同症状也可能比较相似。论文研究在预训练卷积神经网络中加入 CBAM，能否改善梨叶症状分类效果。
+\item 理解模型结构。作者使用预训练 CNN 提取图片特征，在输出特征图之后加入 CBAM，依次进行通道注意力和空间注意力调整，再由分类头预测叶片类别。对照模型使用相同的 CNN，不加入 CBAM。
+\item 理解实验设计。作者使用十折交叉验证，比较多个 CNN 加入 CBAM 前后的表现，并结合精确率、召回率、F1 分数和混淆矩阵分析分类效果。
+\end{enumerate}
+
+\section{1.3 验证结果}
+论文分别测试了 MobileNetV2 和 EfficientNetB0 等网络。下表为\textbf{论文作者报告的十折平均准确率}，不是本人重新训练得到的结果。
+\begin{center}
+{\small 表1\quad 论文中加入 CBAM 前后的分类准确率}\par\vspace{3pt}
+\small
+\begin{tabular}{lccc}
+\toprule
+骨干网络 & 未加入 CBAM & 加入 CBAM & 准确率变化 \\
+\midrule
+MobileNetV2    & 82.06\% & 83.99\% & 提高 1.93 个百分点 \\
+EfficientNetB0 & 85.82\% & 86.89\% & 提高 1.07 个百分点 \\
+\bottomrule
+\end{tabular}
+\end{center}
+上述实验中，两种网络加入 CBAM 后的平均分类准确率均有提高。EfficientNetB0 + CBAM 的最终准确率较高；MobileNetV2 加入 CBAM 后的提升幅度较大。
+
+\section{1.4 遇到的问题}
+\begin{enumerate}
+\item 论文图片来自同一地块的三棵梨树。模型在其他果园、光照及拍摄设备条件下的泛化能力，还需要使用外部数据进一步验证。
+\item Grad-CAM 热力图用于辅助观察预测相关区域，不能单独证明模型一定依据病斑做出判断，也不能单独证明准确率提高完全由 CBAM 引起。
+\item 目前已理解论文的基本结构和对照思路，交叉验证的具体划分、各类别表现及标准差还需要继续阅读。
+\end{enumerate}
+\noindent\textbf{论文来源：} Alirezazadeh P, Schirrmann M, Stolzenburg F. Improving Deep Learning-based Plant Disease Classification with Attention Mechanism. \textit{Gesunde Pflanzen}, 2023, 75: 49--59.\\
+\noindent\url{https://doi.org/10.1007/s10343-022-00796-y}
+\end{document}
